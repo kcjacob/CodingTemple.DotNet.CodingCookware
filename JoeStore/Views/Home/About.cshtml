@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+@if(DateTime.Now.DayOfWeek == DayOfWeek.Monday)
+{
+    <p>It's monday</p>
+}
+else
+{
+    <p>It's not monday</p>
+}
+
+<p>Use this area to provide additional information.</p>
