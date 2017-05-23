@@ -10,34 +10,41 @@ namespace JoeStore.Controllers
     {
 
         // GET: Product
-        public ActionResult Index(int? id, string productName)
-        {
-            if(id == 500)
-            {
-                return this.HttpNotFound("This doesn't exist");
-            }
-
-            //If id is 300, redirect to "Home" controller
-            if(id == 300)
-            {
-                return Redirect("/");
-                //return RedirectToAction("Index", "Home");
-            }
-
-            if (string.IsNullOrEmpty(productName))
-            {
-                productName = "My Product";
-            }
-            var product = new { id = id, name = productName, price = 299m, description = "This is a product" };
-            return Json(product, JsonRequestBehavior.AllowGet);
-            
-        }
-
-        
-        [HttpPost]
         public ActionResult Index(int? id)
         {
-            return RedirectToAction("Index", "Home");
+            if (!Models.ProductData.Products.Any(x => x.ID == id))
+            {
+                return HttpNotFound("Product doesn't exist");
+            }
+            else
+            {
+                return View(Models.ProductData.Products.First(x => x.ID == id));
+            }
+        }
+         
+
+            //Returning JSON is great for passing server-side data back to client-side scripts like Angular or jQuery
+            //return Json(product, JsonRequestBehavior.AllowGet);   
+
+            //Returning Redirects are how I can move people to other pages
+            //return Redirect("/");
+            //return RedirectToAction("Index", "Home");
+
+            //Return not found replies with a 404 error.
+            //return this.HttpNotFound("This doesn't exist");
+
+            //Returning a view will serve up an HTML-based document to the end user which will include my controller data
+
+       
+
+
+        [HttpPost]
+        public ActionResult Index(Models.ProductModel model, int? quantity)
+        {
+            //TODO: add this product to the current user's cart
+            HttpCookie cookie = new HttpCookie("cart", model.ID.ToString() + "," + quantity.Value.ToString());
+            Response.SetCookie(cookie);
+            return RedirectToAction("Index", "Cart");
         }
     }
 }

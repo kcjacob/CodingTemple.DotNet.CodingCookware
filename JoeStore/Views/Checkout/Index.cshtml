@@ -1,0 +1,20 @@
+﻿@model JoeStore.Models.CheckoutModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Checkout</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.ContactEmail, new { @class="form-label" })
+        @Html.TextBoxFor(x => x.ContactEmail, new { @class="form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.ContactPhone, new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.ContactPhone, new { @class = "form-control" })
+    </div>
+    @* TODO: Need to add a lot more inputs on this page!*@
+    <input type="submit" value="Complete Checkout" class="btn btn-primary" />
+}
