@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 namespace JoeStore.Models
-{
+{ 
     public class CheckoutModel : IValidatableObject
     {
         public CheckoutModel()
@@ -20,6 +20,7 @@ namespace JoeStore.Models
 
         //[Required]
         [Phone]
+        [Display(Name ="Phone Number")]
         public string ContactPhone { get; set; }
 
         //[Required]

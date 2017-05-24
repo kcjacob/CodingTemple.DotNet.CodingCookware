@@ -10,6 +10,7 @@ namespace JoeStore.Controllers
     {
 
         // GET: Product
+        [OutputCache(Duration = 300)]
         public ActionResult Index(int? id)
         {
             if (!Models.ProductData.Products.Any(x => x.ID == id))

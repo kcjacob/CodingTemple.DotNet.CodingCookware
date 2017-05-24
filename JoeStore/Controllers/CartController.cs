@@ -10,6 +10,7 @@ namespace JoeStore.Controllers
     public class CartController : Controller
     {
         // GET: Cart
+        
         public ActionResult Index()
         {
             List<CartProductModel> cartProducts = new List<CartProductModel>();

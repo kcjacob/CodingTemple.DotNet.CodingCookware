@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using JoeStore;
 
 namespace JoeStore.Controllers
 {
@@ -19,16 +20,9 @@ namespace JoeStore.Controllers
             }
             return Json(0, JsonRequestBehavior.AllowGet);
         }
-
+        
         public ActionResult Index()
         {
-            if (Request.Cookies.AllKeys.Contains("cart"))
-            {
-                HttpCookie cartCookie = Request.Cookies["cart"];
-                var cookieValues = cartCookie.Value.Split(',');
-                int quantity = int.Parse(cookieValues[1]);
-                ViewBag.CartItemCount = quantity;
-            }
             return View();
         }
 
