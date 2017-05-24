@@ -20,10 +20,16 @@ namespace JoeStore.Controllers
 
         // POST: Checkout
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(CheckoutModel model)
         {
-            //TODO: Save the checkout information somewhere.
-            return RedirectToAction("Index", "Reciept");
+            //Check if the model-state is valid -- this will catch anytime someone hacks your client-side validation
+            if (ModelState.IsValid)
+            {
+                //TODO: Save the checkout information somewhere.
+                return RedirectToAction("Index", "Reciept");
+            }
+            return View(model);
         }
     }
 }

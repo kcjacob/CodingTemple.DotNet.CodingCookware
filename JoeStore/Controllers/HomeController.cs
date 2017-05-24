@@ -8,8 +8,27 @@ namespace JoeStore.Controllers
 {
     public class HomeController : System.Web.Mvc.Controller
     {
+        public ActionResult CartCount()
+        {
+            if (Request.Cookies.AllKeys.Contains("cart"))
+            {
+                HttpCookie cartCookie = Request.Cookies["cart"];
+                var cookieValues = cartCookie.Value.Split(',');
+                int quantity = int.Parse(cookieValues[1]);
+                return Json(quantity, JsonRequestBehavior.AllowGet);
+            }
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Index()
         {
+            if (Request.Cookies.AllKeys.Contains("cart"))
+            {
+                HttpCookie cartCookie = Request.Cookies["cart"];
+                var cookieValues = cartCookie.Value.Split(',');
+                int quantity = int.Parse(cookieValues[1]);
+                ViewBag.CartItemCount = quantity;
+            }
             return View();
         }
 
