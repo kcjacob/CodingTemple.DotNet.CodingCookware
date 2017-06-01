@@ -1,0 +1,17 @@
+﻿@model IEnumerable<JoeStore.Models.ErpRevenueModel>
+@{
+    ViewBag.Title = "Revenues";
+}
+
+<h2>Revenues</h2>
+@Html.ActionLink("Back", "Index", null, new { @class = "btn" })
+<table class="table">
+    @foreach (var revenue in Model)
+    {
+        <tr>
+            <td>@revenue.Date.ToShortDateString()</td>
+            <td>@revenue.Revenue.ToString("c")</td>
+        </tr>
+    }
+</table>
+

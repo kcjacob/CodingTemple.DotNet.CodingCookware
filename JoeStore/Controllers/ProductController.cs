@@ -36,8 +36,6 @@ namespace JoeStore.Controllers
 
             //Returning a view will serve up an HTML-based document to the end user which will include my controller data
 
-       
-
 
         [HttpPost]
         public ActionResult Index(Models.ProductModel model, int? quantity)
