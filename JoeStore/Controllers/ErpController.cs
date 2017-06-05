@@ -15,7 +15,7 @@ namespace JoeStore.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ERP;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ERP"].ConnectionString;
             System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString);
             connection.Open();
 
@@ -49,7 +49,7 @@ namespace JoeStore.Controllers
         public ActionResult Revenues(int? id)
         {
 
-            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ERP;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ERP"].ConnectionString;
             System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString);
             connection.Open();
             System.Data.SqlClient.SqlCommand command = connection.CreateCommand();
