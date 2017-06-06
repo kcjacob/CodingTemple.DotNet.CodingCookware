@@ -26,13 +26,11 @@ namespace CodingTemple.CodingCookware.Web.Models
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<AccountAddress> AccountAddresses { get; set; }
         public virtual DbSet<AccountUser> AccountUsers { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<BasketProduct> BasketProducts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }

@@ -1,19 +1,67 @@
-﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.Product>
+﻿@using System.Linq.Expressions
+@using CodingTemple.CodingCookware.Web.Models
+@model Category
 @{
     ViewBag.Title = "Index";
-}
+    List<Category> breadcrumb = new List<Category>();
 
-<h2>Products</h2>
-@foreach (CodingTemple.CodingCookware.Web.Models.Product product in Model){
-    <div class="panel panel-default">
-        <div class="panel-heading">@product.Name</div>
-        <div class="panel-body">
-            <span>@((product.Price ?? 0).ToString("c"))</span>
-            <p>Description</p>
-            @Html.ActionLink("View Product", "Index", "Product", 
-           new { id = product.ID }, 
-           new { @class = "btn btn-primary" })
+    var currentCategory = Model;
+    do
+    {
+        breadcrumb.Add(currentCategory);
+        currentCategory = currentCategory.Category2;
+    } while (currentCategory != null);
+    if (!string.IsNullOrEmpty(Model.ID))
+    {
+        breadcrumb.Add(new Category { ID = "" });
+    }
+    breadcrumb.Reverse();
+}
+<div class="row">
+    
+        <ol class="breadcrumb">
+            @for (int i = 0; i < breadcrumb.Count; i++)
+            {
+                if(i == breadcrumb.Count - 1)
+                {
+                    <li class="active">@Html.ActionLink((string.IsNullOrEmpty(breadcrumb[i].ID) ? "Home" : breadcrumb[i].ID), "Index", new { ID = breadcrumb[i].ID })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink((string.IsNullOrEmpty(breadcrumb[i].ID) ? "Home" : breadcrumb[i].ID), "Index", new { ID = breadcrumb[i].ID })</li>
+                }
+            }
+        </ol>
+    
+        @*<h2>@Html.ActionLink((string.IsNullOrEmpty(Model.ID) ? "Home" : Model.ID), "Index", new { id = Model.ID })</h2>*@
+        <div class="col-xs-12 col-sm-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="active">@Html.ActionLink((string.IsNullOrEmpty(Model.ID) ? "Home" : Model.ID), "Index", new { ID = Model.ID })</li>
+                @foreach (var subcat in Model.Category1)
+                {
+                    <li role="presentation">
+                        @Html.ActionLink(subcat.ID, "Index", new { ID = subcat.ID })
+                    </li>
+                }
+                
+            </ul>
         </div>
-    </div>
-}
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-xs-12 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@product.Name</div>
+                    <div class="panel-body">
+                        <span>@((product.Price ?? 0).ToString("c"))</span>
+                        <p>@product.Description</p>
+                        @Html.ActionLink("View Product", "Index", "Product",
+            new { id = product.ID },
+            new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
 
+
+    
+</div>

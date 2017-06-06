@@ -18,10 +18,10 @@ namespace CodingTemple.CodingCookware.Web.Models
         public Product()
         {
             this.BasketProducts = new HashSet<BasketProduct>();
-            this.CategoryProducts = new HashSet<CategoryProduct>();
             this.ProductImages = new HashSet<ProductImage>();
             this.PurchaseProducts = new HashSet<PurchaseProduct>();
             this.Reviews = new HashSet<Review>();
+            this.Categories = new HashSet<Category>();
         }
     
         public int ID { get; set; }
@@ -34,12 +34,12 @@ namespace CodingTemple.CodingCookware.Web.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BasketProduct> BasketProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseProduct> PurchaseProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

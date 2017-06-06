@@ -21,8 +21,6 @@
           </Key>
           <Property Name="AccountID" Type="int" Nullable="false" />
           <Property Name="AddressID" Type="int" Nullable="false" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Modified" Type="datetime" />
         </EntityType>
         <EntityType Name="AccountUser">
           <Key>
@@ -86,8 +84,6 @@
           </Key>
           <Property Name="CategoryID" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Modified" Type="datetime" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -526,13 +522,11 @@
       <Schema Namespace="CodingCookwareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CodingCookwareEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="CodingCookwareModel.Account" />
-          <EntitySet Name="AccountAddresses" EntityType="CodingCookwareModel.AccountAddress" />
           <EntitySet Name="AccountUsers" EntityType="CodingCookwareModel.AccountUser" />
           <EntitySet Name="Addresses" EntityType="CodingCookwareModel.Address" />
           <EntitySet Name="Baskets" EntityType="CodingCookwareModel.Basket" />
           <EntitySet Name="BasketProducts" EntityType="CodingCookwareModel.BasketProduct" />
           <EntitySet Name="Categories" EntityType="CodingCookwareModel.Category" />
-          <EntitySet Name="CategoryProducts" EntityType="CodingCookwareModel.CategoryProduct" />
           <EntitySet Name="Products" EntityType="CodingCookwareModel.Product" />
           <EntitySet Name="ProductImages" EntityType="CodingCookwareModel.ProductImage" />
           <EntitySet Name="Purchases" EntityType="CodingCookwareModel.Purchase" />
@@ -541,10 +535,6 @@
           <EntitySet Name="Reviews" EntityType="CodingCookwareModel.Review" />
           <EntitySet Name="Shipments" EntityType="CodingCookwareModel.Shipment" />
           <EntitySet Name="Users" EntityType="CodingCookwareModel.User" />
-          <AssociationSet Name="FK_AccountAddress_Account" Association="CodingCookwareModel.FK_AccountAddress_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="AccountAddress" EntitySet="AccountAddresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_AccountUser_Account" Association="CodingCookwareModel.FK_AccountUser_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="AccountUser" EntitySet="AccountUsers" />
@@ -552,10 +542,6 @@
           <AssociationSet Name="FK_Basket_Account" Association="CodingCookwareModel.FK_Basket_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Basket" EntitySet="Baskets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AccountAddress_Address" Association="CodingCookwareModel.FK_AccountAddress_Address">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="AccountAddress" EntitySet="AccountAddresses" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountUser_User" Association="CodingCookwareModel.FK_AccountUser_User">
             <End Role="User" EntitySet="Users" />
@@ -572,14 +558,6 @@
           <AssociationSet Name="FK_Category_Category" Association="CodingCookwareModel.FK_Category_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Category1" EntitySet="Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CategoryProduct_Category" Association="CodingCookwareModel.FK_CategoryProduct_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="CategoryProduct" EntitySet="CategoryProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CategoryProduct_Product" Association="CodingCookwareModel.FK_CategoryProduct_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="CategoryProduct" EntitySet="CategoryProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductImage_Product" Association="CodingCookwareModel.FK_ProductImage_Product">
             <End Role="Product" EntitySet="Products" />
@@ -613,6 +591,14 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
+          <AssociationSet Name="AccountAddress" Association="CodingCookwareModel.AccountAddress">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="CategoryProduct" Association="CodingCookwareModel.CategoryProduct">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -622,21 +608,9 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AccountAddresses" Relationship="CodingCookwareModel.FK_AccountAddress_Account" FromRole="Account" ToRole="AccountAddress" />
           <NavigationProperty Name="AccountUsers" Relationship="CodingCookwareModel.FK_AccountUser_Account" FromRole="Account" ToRole="AccountUser" />
           <NavigationProperty Name="Baskets" Relationship="CodingCookwareModel.FK_Basket_Account" FromRole="Account" ToRole="Basket" />
-        </EntityType>
-        <EntityType Name="AccountAddress">
-          <Key>
-            <PropertyRef Name="AccountID" />
-            <PropertyRef Name="AddressID" />
-          </Key>
-          <Property Name="AccountID" Type="Int32" Nullable="false" />
-          <Property Name="AddressID" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="CodingCookwareModel.FK_AccountAddress_Account" FromRole="AccountAddress" ToRole="Account" />
-          <NavigationProperty Name="Address" Relationship="CodingCookwareModel.FK_AccountAddress_Address" FromRole="AccountAddress" ToRole="Address" />
+          <NavigationProperty Name="Addresses" Relationship="CodingCookwareModel.AccountAddress" FromRole="Account" ToRole="Address" />
         </EntityType>
         <EntityType Name="AccountUser">
           <Key>
@@ -664,7 +638,7 @@
           <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AccountAddresses" Relationship="CodingCookwareModel.FK_AccountAddress_Address" FromRole="Address" ToRole="AccountAddress" />
+          <NavigationProperty Name="Accounts" Relationship="CodingCookwareModel.AccountAddress" FromRole="Address" ToRole="Account" />
         </EntityType>
         <EntityType Name="Basket">
           <Key>
@@ -701,19 +675,7 @@
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Category1" Relationship="CodingCookwareModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
           <NavigationProperty Name="Category2" Relationship="CodingCookwareModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
-          <NavigationProperty Name="CategoryProducts" Relationship="CodingCookwareModel.FK_CategoryProduct_Category" FromRole="Category" ToRole="CategoryProduct" />
-        </EntityType>
-        <EntityType Name="CategoryProduct">
-          <Key>
-            <PropertyRef Name="CategoryID" />
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Category" Relationship="CodingCookwareModel.FK_CategoryProduct_Category" FromRole="CategoryProduct" ToRole="Category" />
-          <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_CategoryProduct_Product" FromRole="CategoryProduct" ToRole="Product" />
+          <NavigationProperty Name="Products" Relationship="CodingCookwareModel.CategoryProduct" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -726,10 +688,10 @@
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BasketProducts" Relationship="CodingCookwareModel.FK_BasketProduct_Product" FromRole="Product" ToRole="BasketProduct" />
-          <NavigationProperty Name="CategoryProducts" Relationship="CodingCookwareModel.FK_CategoryProduct_Product" FromRole="Product" ToRole="CategoryProduct" />
           <NavigationProperty Name="ProductImages" Relationship="CodingCookwareModel.FK_ProductImage_Product" FromRole="Product" ToRole="ProductImage" />
           <NavigationProperty Name="PurchaseProducts" Relationship="CodingCookwareModel.FK_PurchaseProduct_Product" FromRole="Product" ToRole="PurchaseProduct" />
           <NavigationProperty Name="Reviews" Relationship="CodingCookwareModel.FK_Review_Product" FromRole="Product" ToRole="Review" />
+          <NavigationProperty Name="Categories" Relationship="CodingCookwareModel.CategoryProduct" FromRole="Product" ToRole="Category" />
         </EntityType>
         <EntityType Name="ProductImage">
           <Key>
@@ -831,20 +793,6 @@
           <NavigationProperty Name="AccountUsers" Relationship="CodingCookwareModel.FK_AccountUser_User" FromRole="User" ToRole="AccountUser" />
           <NavigationProperty Name="Reviews" Relationship="CodingCookwareModel.FK_Review_User" FromRole="User" ToRole="Review" />
         </EntityType>
-        <Association Name="FK_AccountAddress_Account">
-          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.AccountAddress" Role="AccountAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AccountAddress">
-              <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AccountUser_Account">
           <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -868,20 +816,6 @@
             </Principal>
             <Dependent Role="Basket">
               <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AccountAddress_Address">
-          <End Type="CodingCookwareModel.Address" Role="Address" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.AccountAddress" Role="AccountAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AccountAddress">
-              <PropertyRef Name="AddressID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -936,34 +870,6 @@
             </Principal>
             <Dependent Role="Category1">
               <PropertyRef Name="ParentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CategoryProduct_Category">
-          <End Type="CodingCookwareModel.Category" Role="Category" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.CategoryProduct" Role="CategoryProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CategoryProduct">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CategoryProduct_Product">
-          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.CategoryProduct" Role="CategoryProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CategoryProduct">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1075,7 +981,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="AccountAddress">
+          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="*" />
+          <End Type="CodingCookwareModel.Address" Role="Address" Multiplicity="*" />
+        </Association>
+        <Association Name="CategoryProduct">
+          <End Type="CodingCookwareModel.Category" Role="Category" Multiplicity="*" />
+          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1088,16 +1002,6 @@
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AccountAddresses">
-            <EntityTypeMapping TypeName="CodingCookwareModel.AccountAddress">
-              <MappingFragment StoreEntitySet="AccountAddress">
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1156,16 +1060,6 @@
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CategoryProducts">
-            <EntityTypeMapping TypeName="CodingCookwareModel.CategoryProduct">
-              <MappingFragment StoreEntitySet="CategoryProduct">
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1273,6 +1167,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AccountAddress" TypeName="CodingCookwareModel.AccountAddress" StoreEntitySet="AccountAddress">
+            <EndProperty Name="Address">
+              <ScalarProperty Name="ID" ColumnName="AddressID" />
+            </EndProperty>
+            <EndProperty Name="Account">
+              <ScalarProperty Name="ID" ColumnName="AccountID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CategoryProduct" TypeName="CodingCookwareModel.CategoryProduct" StoreEntitySet="CategoryProduct">
+            <EndProperty Name="Product">
+              <ScalarProperty Name="ID" ColumnName="ProductID" />
+            </EndProperty>
+            <EndProperty Name="Category">
+              <ScalarProperty Name="ID" ColumnName="CategoryID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

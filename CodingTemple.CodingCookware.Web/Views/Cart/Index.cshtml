@@ -1,15 +1,10 @@
-﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.BasketProduct>
+﻿@model CodingTemple.CodingCookware.Web.Models.Basket
 @{
     ViewBag.Title = "Index";
-    decimal totalCost = 0m;
-    foreach (var product in Model)
-    {
-        totalCost += (product.Product.Price ?? 0) * product.Quantity;
-    }
 }
 
 <h2>Cart</h2>
-@if (Model.Count() == 0)
+@if (Model.BasketProducts.Count() == 0)
 {
     <div class="alert alert-warning">
         <p>Your cart is currently empty</p>
@@ -20,6 +15,7 @@ else
 {
     using (Html.BeginForm())
     {
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -32,23 +28,28 @@ else
                 </tr>
             </thead>
             <tbody>
-                @for(int i = 0; i < Model.Count(); i++)
+                @for(int i = 0; i < Model.BasketProducts.Count(); i++)
                 {
                     <tr>
                         <td></td>
-                        <td>@Model.ElementAt(i).Product.Name</td>
-                        <td>@Model.ElementAt(i).Product.Description</td>
-                        <td>@((Model.ElementAt(i).Product.Price ?? 0).ToString("c"))</td>
-                        <td>@Html.TextBoxFor(m => m.ElementAt(i).Quantity, new { @class ="form-control" })</td>
+                        <td>@Model.BasketProducts.ElementAt(i).Product.Name</td>
+                        <td>@Model.BasketProducts.ElementAt(i).Product.Description</td>
+                        <td>@((Model.BasketProducts.ElementAt(i).Product.Price ?? 0).ToString("c"))</td>
+                        <td><input class="form-control" name="BasketProducts[@i].Quantity" type="number" value="@Model.BasketProducts.ElementAt(i).Quantity"/>
+                            <input type="hidden" name="BasketProducts[@i].ProductID" value="@Model.BasketProducts.ElementAt(i).ProductID" />
+                        </td>
+                            
                         @* the above line will render out <input type="text" name="model[0].quantity" class="form-control" />*@
-                        <td>@(((Model.ElementAt(i).Product.Price ?? 0) * Model.ElementAt(i).Quantity).ToString("c"))</td>
+                        <td>@(((Model.BasketProducts.ElementAt(i).Product.Price ?? 0) * Model.BasketProducts.ElementAt(i).Quantity).ToString("c"))
+                        </td>
+                        
                     </tr>
                 }
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="5">Total</td>
-                    <td>@totalCost.ToString("c")</td>
+                    <td>@Model.BasketProducts.Sum(x => (x.Product.Price ?? 0) * x.Quantity).ToString("c")</td>
                 </tr>
             </tfoot>
         </table>

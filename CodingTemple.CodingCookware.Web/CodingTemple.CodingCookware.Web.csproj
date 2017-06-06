@@ -172,9 +172,6 @@
     <Compile Include="Models\Account.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountAddress.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountUser.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
@@ -195,9 +192,6 @@
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CategoryProduct.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CheckoutModel.cs" />

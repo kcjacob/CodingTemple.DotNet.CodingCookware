@@ -18,7 +18,7 @@ namespace CodingTemple.CodingCookware.Web.Models
         public Category()
         {
             this.Category1 = new HashSet<Category>();
-            this.CategoryProducts = new HashSet<CategoryProduct>();
+            this.Products = new HashSet<Product>();
         }
     
         public string ID { get; set; }
@@ -30,6 +30,6 @@ namespace CodingTemple.CodingCookware.Web.Models
         public virtual ICollection<Category> Category1 { get; set; }
         public virtual Category Category2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

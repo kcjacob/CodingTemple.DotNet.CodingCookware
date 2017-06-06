@@ -26,29 +26,33 @@ namespace CodingTemple.CodingCookware.Web.Controllers
                 //CartCookie comes in with "2,1", meaning productId = 2, quantity = 1
                 int cartId = int.Parse(Request.Cookies["cart"].Value);
                 var basket = entities.Baskets.Find(cartId);
-                return View(basket.BasketProducts);
+                return View(basket);
             }
 
-            return View(new BasketProduct[0]);
+            return View(new Basket  { BasketProducts = new BasketProduct[0] });
         }
 
         // POST: Cart
         [HttpPost]
-        public ActionResult Index(BasketProduct[] model, int? quantity)
+        public ActionResult Index(Basket model)
         {
 
             HttpCookie cartCookie = Request.Cookies["cart"];
             //CartCookie comes in with "2,1", meaning productId = 2, quantity = 1
-            var cookieValues = cartCookie.Value.Split(',');
-            int productId = int.Parse(cookieValues[0]);
-            cartCookie.Value = productId + "," + quantity.Value;
-  
-            //If the quantity is 0 or null, expire the cookie - in effect, this will remove everything from the cart
-            if(quantity == null || quantity.Value < 1)
+            int cartId = int.Parse(Request.Cookies["cart"].Value);
+            var basket = entities.Baskets.Find(cartId);
+            foreach(var updatedProduct in model.BasketProducts)
             {
-                cartCookie.Expires = DateTime.UtcNow;
+                var product = basket.BasketProducts.FirstOrDefault(x => x.ProductID == updatedProduct.ProductID);
+                if(product != null)
+                {
+                    product.Quantity = updatedProduct.Quantity;
+                    product.Modified = DateTime.UtcNow;
+                }
             }
-            Response.SetCookie(cartCookie);
+            entities.SaveChanges();
+            entities.BasketProducts.RemoveRange(basket.BasketProducts.Where(x => x.Quantity == 0));
+            entities.SaveChanges();
             return RedirectToAction("Index");
         }
     }

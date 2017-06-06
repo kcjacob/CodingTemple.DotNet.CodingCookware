@@ -19,9 +19,14 @@ namespace CodingTemple.CodingCookware.Web.Controllers
         {
             if (!string.IsNullOrEmpty(id))
             {
-                return View(entities.Categories.Find(id).CategoryProducts.Select(x => x.Product));
+                return View(entities.Categories.Find(id));
             }
-            return View(entities.Products);
+            return View(new Models.Category
+            {
+                Category1 = entities.Categories.Where(x => x.Category2 == null).ToList(),
+                Products = entities.Products.Where(x => !x.Categories.Any()).ToList(),
+                ID = ""
+            });
         }
     }
 }

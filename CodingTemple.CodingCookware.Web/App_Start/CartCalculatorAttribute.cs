@@ -15,10 +15,12 @@ namespace CodingTemple.CodingCookware.Web
             
             if (filterContext.RequestContext.HttpContext.Request.Cookies.AllKeys.Contains("cart"))
             {
-                //HttpCookie cartCookie = filterContext.RequestContext.HttpContext.Request.Cookies["cart"];
-                //var cookieValues = cartCookie.Value.Split(',');
-                //int quantity = int.Parse(cookieValues[1]);
-                //filterContext.Controller.ViewBag.CartItemCount = quantity;
+                int cartId = int.Parse(filterContext.RequestContext.HttpContext.Request.Cookies["cart"].Value);
+                using (CodingCookware.Web.Models.CodingCookwareEntities entities = new Models.CodingCookwareEntities())
+                {
+                    var basket = entities.Baskets.Find(cartId);
+                    filterContext.Controller.ViewBag.CartItemCount = basket.BasketProducts.Sum(x => x.Quantity);
+                }
             }
                    
         }
