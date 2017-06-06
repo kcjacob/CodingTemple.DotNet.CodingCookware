@@ -1,10 +1,10 @@
-﻿@model IEnumerable<JoeStore.Models.ProductModel>
+﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.ProductModel>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Products</h2>
-@foreach (JoeStore.Models.ProductModel product in Model){
+@foreach (CodingTemple.CodingCookware.Web.Models.ProductModel product in Model){
     <div class="panel panel-default">
         <div class="panel-heading">@product.Name</div>
         <div class="panel-body">

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using JoeStore.Models;
-namespace JoeStore.Controllers
+using CodingTemple.CodingCookware.Web.Models;
+namespace CodingTemple.CodingCookware.Web.Controllers
 {
     public class CheckoutController : Controller
     {

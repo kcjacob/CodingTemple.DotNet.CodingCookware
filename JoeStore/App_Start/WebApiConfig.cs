@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace JoeStore
+namespace CodingTemple.CodingCookware.Web
 {
     public static class WebApiConfig
     {

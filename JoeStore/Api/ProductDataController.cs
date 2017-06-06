@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 
-namespace JoeStore.Controllers
+namespace CodingTemple.CodingCookware.Web.Controllers
 {
     //My API controllers are inheriting from the ApiController base class, not the same thing as MVC's Controller base class.
     public class ProductDataController : ApiController

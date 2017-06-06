@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JoeStore.Controllers
+namespace CodingTemple.CodingCookware.Web.Controllers
 {
     public class ProductController : Controller
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using JoeStore;
+using CodingTemple.CodingCookware.Web;
 
-namespace JoeStore.Controllers
+namespace CodingTemple.CodingCookware.Web.Controllers
 {
     public class HomeController : System.Web.Mvc.Controller
     {

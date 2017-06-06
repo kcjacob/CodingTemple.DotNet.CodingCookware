@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace JoeStore.Models
+namespace CodingTemple.CodingCookware.Web.Models
 { 
     public class CheckoutModel : IValidatableObject
     {

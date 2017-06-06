@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace JoeStore.Models
+namespace CodingTemple.CodingCookware.Web.Models
 {
     //This is how models are typically defined - just a bunch of properties, no (or few) methods.  
     //Sometimes referred to as DTOs (Data Transfer Objects), or POCOs (Plain Old CLR Objects).

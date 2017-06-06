@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace JoeStore.Areas.Admin
+namespace CodingTemple.CodingCookware.Web.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
     {

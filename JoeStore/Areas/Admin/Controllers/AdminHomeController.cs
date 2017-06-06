@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JoeStore.Areas.Admin.Controllers
+namespace CodingTemple.CodingCookware.Web.Areas.Admin.Controllers
 {
     public class AdminHomeController : Controller
     {
