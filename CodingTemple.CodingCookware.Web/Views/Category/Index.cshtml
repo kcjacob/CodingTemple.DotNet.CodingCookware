@@ -1,15 +1,15 @@
-﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.ProductModel>
+﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.Product>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Products</h2>
-@foreach (CodingTemple.CodingCookware.Web.Models.ProductModel product in Model){
+@foreach (CodingTemple.CodingCookware.Web.Models.Product product in Model){
     <div class="panel panel-default">
         <div class="panel-heading">@product.Name</div>
         <div class="panel-body">
             <span>@((product.Price ?? 0).ToString("c"))</span>
-            <p>@product.Description</p>
+            <p>Description</p>
             @Html.ActionLink("View Product", "Index", "Product", 
            new { id = product.ID }, 
            new { @class = "btn btn-primary" })

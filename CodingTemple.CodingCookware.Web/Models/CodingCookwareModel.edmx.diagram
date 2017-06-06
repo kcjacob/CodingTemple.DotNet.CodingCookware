@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="90e5d41f04f241ddb570ae736f17464c" Name="Diagram1">
+        <EntityTypeShape EntityType="CodingCookwareModel.Account" Width="1.5" PointX="1.5" PointY="17" />
+        <EntityTypeShape EntityType="CodingCookwareModel.AccountAddress" Width="1.5" PointX="3.75" PointY="17.125" />
+        <EntityTypeShape EntityType="CodingCookwareModel.AccountUser" Width="1.5" PointX="8" PointY="12.5" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Address" Width="1.5" PointX="1.5" PointY="0.75" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Basket" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="CodingCookwareModel.BasketProduct" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Category" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="CodingCookwareModel.CategoryProduct" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Product" Width="1.5" PointX="0.75" PointY="8.625" />
+        <EntityTypeShape EntityType="CodingCookwareModel.ProductImage" Width="1.5" PointX="3" PointY="22.875" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Purchase" Width="1.5" PointX="0.75" PointY="21" />
+        <EntityTypeShape EntityType="CodingCookwareModel.PurchaseProduct" Width="1.5" PointX="3" PointY="12.625" />
+        <EntityTypeShape EntityType="CodingCookwareModel.PurchaseProductShipment" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Review" Width="1.5" PointX="6" PointY="8.625" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Shipment" Width="1.5" PointX="3" PointY="27.25" />
+        <EntityTypeShape EntityType="CodingCookwareModel.User" Width="1.5" PointX="3.75" PointY="2" />
+        <AssociationConnector Association="CodingCookwareModel.FK_AccountAddress_Account" />
+        <AssociationConnector Association="CodingCookwareModel.FK_AccountUser_Account" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Basket_Account" />
+        <AssociationConnector Association="CodingCookwareModel.FK_AccountAddress_Address" />
+        <AssociationConnector Association="CodingCookwareModel.FK_AccountUser_User" />
+        <AssociationConnector Association="CodingCookwareModel.FK_BasketProduct_Basket" />
+        <AssociationConnector Association="CodingCookwareModel.FK_BasketProduct_Product" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Category_Category" />
+        <AssociationConnector Association="CodingCookwareModel.FK_CategoryProduct_Category" />
+        <AssociationConnector Association="CodingCookwareModel.FK_CategoryProduct_Product" />
+        <AssociationConnector Association="CodingCookwareModel.FK_ProductImage_Product" />
+        <AssociationConnector Association="CodingCookwareModel.FK_PurchaseProduct_Product" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Review_Product" />
+        <AssociationConnector Association="CodingCookwareModel.FK_PurchaseProduct_Purchase" />
+        <AssociationConnector Association="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct" />
+        <AssociationConnector Association="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Review_Review" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Review_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

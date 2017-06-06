@@ -1,0 +1,1299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CodingCookwareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AccountAddress">
+          <Key>
+            <PropertyRef Name="AccountID" />
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AccountUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="PrimaryUser" Type="bit" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="500" />
+          <Property Name="City" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="nvarchar" MaxLength="500" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Country" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BasketProduct">
+          <Key>
+            <PropertyRef Name="BasketID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="BasketID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="100" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CategoryProduct">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="CategoryID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="URL" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="AlternateText" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderIdentifier" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SubmittedDate" Type="datetime" Nullable="false" />
+          <Property Name="FulfilledDate" Type="datetime" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PurchaseProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProductPrice" Type="money" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PurchaseProductShipment">
+          <Key>
+            <PropertyRef Name="ShipmentID" />
+            <PropertyRef Name="PurchaseProductID" />
+          </Key>
+          <Property Name="ShipmentID" Type="int" Nullable="false" />
+          <Property Name="PurchaseProductID" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Approved" Type="bit" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ShipDate" Type="datetime" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="EstimatedDeliveryDate" Type="datetime" />
+          <Property Name="TrackingNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="Recipient" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="500" />
+          <Property Name="City" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="nvarchar" MaxLength="500" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Country" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AccountAddress_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountAddress" Type="Self.AccountAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountAddress">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountAddress_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountAddress" Type="Self.AccountAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountAddress">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountUser_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountUser" Type="Self.AccountUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountUser">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountUser" Type="Self.AccountUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProduct_Basket">
+          <End Role="Basket" Type="Self.Basket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BasketProduct" Type="Self.BasketProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basket">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BasketProduct">
+              <PropertyRef Name="BasketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BasketProduct" Type="Self.BasketProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BasketProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryProduct_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CategoryProduct" Type="Self.CategoryProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CategoryProduct">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CategoryProduct" Type="Self.CategoryProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CategoryProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductImage_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="PurchaseProduct" Type="Self.PurchaseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Purchase">
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PurchaseProduct" Type="Self.PurchaseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProduct">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProductShipment_PurchaseProduct">
+          <End Role="PurchaseProduct" Type="Self.PurchaseProduct" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PurchaseProductShipment" Type="Self.PurchaseProductShipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseProduct">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProductShipment">
+              <PropertyRef Name="PurchaseProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProductShipment_Shipment">
+          <End Role="Shipment" Type="Self.Shipment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PurchaseProductShipment" Type="Self.PurchaseProductShipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProductShipment">
+              <PropertyRef Name="ShipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Review">
+          <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+          <End Role="Review1" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodingCookwareModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountAddress" EntityType="Self.AccountAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountUser" EntityType="Self.AccountUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BasketProduct" EntityType="Self.BasketProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryProduct" EntityType="Self.CategoryProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseProduct" EntityType="Self.PurchaseProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseProductShipment" EntityType="Self.PurchaseProductShipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipment" EntityType="Self.Shipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccountAddress_Account" Association="Self.FK_AccountAddress_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="AccountAddress" EntitySet="AccountAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountAddress_Address" Association="Self.FK_AccountAddress_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="AccountAddress" EntitySet="AccountAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountUser_Account" Association="Self.FK_AccountUser_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="AccountUser" EntitySet="AccountUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountUser_User" Association="Self.FK_AccountUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AccountUser" EntitySet="AccountUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_Account" Association="Self.FK_Basket_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProduct_Basket" Association="Self.FK_BasketProduct_Basket">
+            <End Role="Basket" EntitySet="Basket" />
+            <End Role="BasketProduct" EntitySet="BasketProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProduct_Product" Association="Self.FK_BasketProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="BasketProduct" EntitySet="BasketProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryProduct_Category" Association="Self.FK_CategoryProduct_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryProduct" EntitySet="CategoryProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryProduct_Product" Association="Self.FK_CategoryProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="CategoryProduct" EntitySet="CategoryProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductImage_Product" Association="Self.FK_ProductImage_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductImage" EntitySet="ProductImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Product" Association="Self.FK_PurchaseProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="PurchaseProduct" EntitySet="PurchaseProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Purchase" Association="Self.FK_PurchaseProduct_Purchase">
+            <End Role="Purchase" EntitySet="Purchase" />
+            <End Role="PurchaseProduct" EntitySet="PurchaseProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProductShipment_PurchaseProduct" Association="Self.FK_PurchaseProductShipment_PurchaseProduct">
+            <End Role="PurchaseProduct" EntitySet="PurchaseProduct" />
+            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProductShipment_Shipment" Association="Self.FK_PurchaseProductShipment_Shipment">
+            <End Role="Shipment" EntitySet="Shipment" />
+            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Product" Association="Self.FK_Review_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Review" Association="Self.FK_Review_Review">
+            <End Role="Review" EntitySet="Review" />
+            <End Role="Review1" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_User" Association="Self.FK_Review_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CodingCookwareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CodingCookwareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="CodingCookwareModel.Account" />
+          <EntitySet Name="AccountAddresses" EntityType="CodingCookwareModel.AccountAddress" />
+          <EntitySet Name="AccountUsers" EntityType="CodingCookwareModel.AccountUser" />
+          <EntitySet Name="Addresses" EntityType="CodingCookwareModel.Address" />
+          <EntitySet Name="Baskets" EntityType="CodingCookwareModel.Basket" />
+          <EntitySet Name="BasketProducts" EntityType="CodingCookwareModel.BasketProduct" />
+          <EntitySet Name="Categories" EntityType="CodingCookwareModel.Category" />
+          <EntitySet Name="CategoryProducts" EntityType="CodingCookwareModel.CategoryProduct" />
+          <EntitySet Name="Products" EntityType="CodingCookwareModel.Product" />
+          <EntitySet Name="ProductImages" EntityType="CodingCookwareModel.ProductImage" />
+          <EntitySet Name="Purchases" EntityType="CodingCookwareModel.Purchase" />
+          <EntitySet Name="PurchaseProducts" EntityType="CodingCookwareModel.PurchaseProduct" />
+          <EntitySet Name="PurchaseProductShipments" EntityType="CodingCookwareModel.PurchaseProductShipment" />
+          <EntitySet Name="Reviews" EntityType="CodingCookwareModel.Review" />
+          <EntitySet Name="Shipments" EntityType="CodingCookwareModel.Shipment" />
+          <EntitySet Name="Users" EntityType="CodingCookwareModel.User" />
+          <AssociationSet Name="FK_AccountAddress_Account" Association="CodingCookwareModel.FK_AccountAddress_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="AccountAddress" EntitySet="AccountAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountUser_Account" Association="CodingCookwareModel.FK_AccountUser_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="AccountUser" EntitySet="AccountUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_Account" Association="CodingCookwareModel.FK_Basket_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Basket" EntitySet="Baskets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountAddress_Address" Association="CodingCookwareModel.FK_AccountAddress_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="AccountAddress" EntitySet="AccountAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountUser_User" Association="CodingCookwareModel.FK_AccountUser_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AccountUser" EntitySet="AccountUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProduct_Basket" Association="CodingCookwareModel.FK_BasketProduct_Basket">
+            <End Role="Basket" EntitySet="Baskets" />
+            <End Role="BasketProduct" EntitySet="BasketProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketProduct_Product" Association="CodingCookwareModel.FK_BasketProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="BasketProduct" EntitySet="BasketProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Category" Association="CodingCookwareModel.FK_Category_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryProduct_Category" Association="CodingCookwareModel.FK_CategoryProduct_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoryProduct" EntitySet="CategoryProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryProduct_Product" Association="CodingCookwareModel.FK_CategoryProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CategoryProduct" EntitySet="CategoryProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductImage_Product" Association="CodingCookwareModel.FK_ProductImage_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductImage" EntitySet="ProductImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Product" Association="CodingCookwareModel.FK_PurchaseProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="PurchaseProduct" EntitySet="PurchaseProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Product" Association="CodingCookwareModel.FK_Review_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Purchase" Association="CodingCookwareModel.FK_PurchaseProduct_Purchase">
+            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="PurchaseProduct" EntitySet="PurchaseProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProductShipment_PurchaseProduct" Association="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct">
+            <End Role="PurchaseProduct" EntitySet="PurchaseProducts" />
+            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProductShipment_Shipment" Association="CodingCookwareModel.FK_PurchaseProductShipment_Shipment">
+            <End Role="Shipment" EntitySet="Shipments" />
+            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Review" Association="CodingCookwareModel.FK_Review_Review">
+            <End Role="Review" EntitySet="Reviews" />
+            <End Role="Review1" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_User" Association="CodingCookwareModel.FK_Review_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccountAddresses" Relationship="CodingCookwareModel.FK_AccountAddress_Account" FromRole="Account" ToRole="AccountAddress" />
+          <NavigationProperty Name="AccountUsers" Relationship="CodingCookwareModel.FK_AccountUser_Account" FromRole="Account" ToRole="AccountUser" />
+          <NavigationProperty Name="Baskets" Relationship="CodingCookwareModel.FK_Basket_Account" FromRole="Account" ToRole="Basket" />
+        </EntityType>
+        <EntityType Name="AccountAddress">
+          <Key>
+            <PropertyRef Name="AccountID" />
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="CodingCookwareModel.FK_AccountAddress_Account" FromRole="AccountAddress" ToRole="Account" />
+          <NavigationProperty Name="Address" Relationship="CodingCookwareModel.FK_AccountAddress_Address" FromRole="AccountAddress" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="AccountUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="PrimaryUser" Type="Boolean" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="CodingCookwareModel.FK_AccountUser_Account" FromRole="AccountUser" ToRole="Account" />
+          <NavigationProperty Name="User" Relationship="CodingCookwareModel.FK_AccountUser_User" FromRole="AccountUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccountAddresses" Relationship="CodingCookwareModel.FK_AccountAddress_Address" FromRole="Address" ToRole="AccountAddress" />
+        </EntityType>
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="CodingCookwareModel.FK_Basket_Account" FromRole="Basket" ToRole="Account" />
+          <NavigationProperty Name="BasketProducts" Relationship="CodingCookwareModel.FK_BasketProduct_Basket" FromRole="Basket" ToRole="BasketProduct" />
+        </EntityType>
+        <EntityType Name="BasketProduct">
+          <Key>
+            <PropertyRef Name="BasketID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="BasketID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Basket" Relationship="CodingCookwareModel.FK_BasketProduct_Basket" FromRole="BasketProduct" ToRole="Basket" />
+          <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_BasketProduct_Product" FromRole="BasketProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category1" Relationship="CodingCookwareModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="CodingCookwareModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="CategoryProducts" Relationship="CodingCookwareModel.FK_CategoryProduct_Category" FromRole="Category" ToRole="CategoryProduct" />
+        </EntityType>
+        <EntityType Name="CategoryProduct">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="CodingCookwareModel.FK_CategoryProduct_Category" FromRole="CategoryProduct" ToRole="Category" />
+          <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_CategoryProduct_Product" FromRole="CategoryProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BasketProducts" Relationship="CodingCookwareModel.FK_BasketProduct_Product" FromRole="Product" ToRole="BasketProduct" />
+          <NavigationProperty Name="CategoryProducts" Relationship="CodingCookwareModel.FK_CategoryProduct_Product" FromRole="Product" ToRole="CategoryProduct" />
+          <NavigationProperty Name="ProductImages" Relationship="CodingCookwareModel.FK_ProductImage_Product" FromRole="Product" ToRole="ProductImage" />
+          <NavigationProperty Name="PurchaseProducts" Relationship="CodingCookwareModel.FK_PurchaseProduct_Product" FromRole="Product" ToRole="PurchaseProduct" />
+          <NavigationProperty Name="Reviews" Relationship="CodingCookwareModel.FK_Review_Product" FromRole="Product" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_ProductImage_Product" FromRole="ProductImage" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderIdentifier" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SubmittedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FulfilledDate" Type="DateTime" Precision="3" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PurchaseProducts" Relationship="CodingCookwareModel.FK_PurchaseProduct_Purchase" FromRole="Purchase" ToRole="PurchaseProduct" />
+        </EntityType>
+        <EntityType Name="PurchaseProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_PurchaseProduct_Product" FromRole="PurchaseProduct" ToRole="Product" />
+          <NavigationProperty Name="Purchase" Relationship="CodingCookwareModel.FK_PurchaseProduct_Purchase" FromRole="PurchaseProduct" ToRole="Purchase" />
+          <NavigationProperty Name="PurchaseProductShipments" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct" FromRole="PurchaseProduct" ToRole="PurchaseProductShipment" />
+        </EntityType>
+        <EntityType Name="PurchaseProductShipment">
+          <Key>
+            <PropertyRef Name="ShipmentID" />
+            <PropertyRef Name="PurchaseProductID" />
+          </Key>
+          <Property Name="ShipmentID" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseProductID" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PurchaseProduct" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct" FromRole="PurchaseProductShipment" ToRole="PurchaseProduct" />
+          <NavigationProperty Name="Shipment" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" FromRole="PurchaseProductShipment" ToRole="Shipment" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_Review_Product" FromRole="Review" ToRole="Product" />
+          <NavigationProperty Name="Review1" Relationship="CodingCookwareModel.FK_Review_Review" FromRole="Review" ToRole="Review1" />
+          <NavigationProperty Name="Review2" Relationship="CodingCookwareModel.FK_Review_Review" FromRole="Review1" ToRole="Review" />
+          <NavigationProperty Name="User" Relationship="CodingCookwareModel.FK_Review_User" FromRole="Review" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="EstimatedDeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="Recipient" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseProductShipments" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" FromRole="Shipment" ToRole="PurchaseProductShipment" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccountUsers" Relationship="CodingCookwareModel.FK_AccountUser_User" FromRole="User" ToRole="AccountUser" />
+          <NavigationProperty Name="Reviews" Relationship="CodingCookwareModel.FK_Review_User" FromRole="User" ToRole="Review" />
+        </EntityType>
+        <Association Name="FK_AccountAddress_Account">
+          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.AccountAddress" Role="AccountAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountAddress">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountUser_Account">
+          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.AccountUser" Role="AccountUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountUser">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_Account">
+          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="CodingCookwareModel.Basket" Role="Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountAddress_Address">
+          <End Type="CodingCookwareModel.Address" Role="Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.AccountAddress" Role="AccountAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountAddress">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountUser_User">
+          <End Type="CodingCookwareModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.AccountUser" Role="AccountUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccountUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProduct_Basket">
+          <End Type="CodingCookwareModel.Basket" Role="Basket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.BasketProduct" Role="BasketProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basket">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BasketProduct">
+              <PropertyRef Name="BasketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketProduct_Product">
+          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.BasketProduct" Role="BasketProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BasketProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Category">
+          <End Type="CodingCookwareModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="CodingCookwareModel.Category" Role="Category1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryProduct_Category">
+          <End Type="CodingCookwareModel.Category" Role="Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.CategoryProduct" Role="CategoryProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CategoryProduct">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryProduct_Product">
+          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.CategoryProduct" Role="CategoryProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CategoryProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductImage_Product">
+          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Product">
+          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="CodingCookwareModel.PurchaseProduct" Role="PurchaseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Product">
+          <End Type="CodingCookwareModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Purchase">
+          <End Type="CodingCookwareModel.Purchase" Role="Purchase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.PurchaseProduct" Role="PurchaseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProduct">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProductShipment_PurchaseProduct">
+          <End Type="CodingCookwareModel.PurchaseProduct" Role="PurchaseProduct" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.PurchaseProductShipment" Role="PurchaseProductShipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseProduct">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProductShipment">
+              <PropertyRef Name="PurchaseProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProductShipment_Shipment">
+          <End Type="CodingCookwareModel.Shipment" Role="Shipment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.PurchaseProductShipment" Role="PurchaseProductShipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseProductShipment">
+              <PropertyRef Name="ShipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Review">
+          <End Type="CodingCookwareModel.Review" Role="Review" Multiplicity="0..1" />
+          <End Type="CodingCookwareModel.Review" Role="Review1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_User">
+          <End Type="CodingCookwareModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodingCookwareModelStoreContainer" CdmEntityContainer="CodingCookwareEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountAddresses">
+            <EntityTypeMapping TypeName="CodingCookwareModel.AccountAddress">
+              <MappingFragment StoreEntitySet="AccountAddress">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountUsers">
+            <EntityTypeMapping TypeName="CodingCookwareModel.AccountUser">
+              <MappingFragment StoreEntitySet="AccountUser">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="PrimaryUser" ColumnName="PrimaryUser" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Baskets">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Basket">
+              <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasketProducts">
+            <EntityTypeMapping TypeName="CodingCookwareModel.BasketProduct">
+              <MappingFragment StoreEntitySet="BasketProduct">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="BasketID" ColumnName="BasketID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryProducts">
+            <EntityTypeMapping TypeName="CodingCookwareModel.CategoryProduct">
+              <MappingFragment StoreEntitySet="CategoryProduct">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductImages">
+            <EntityTypeMapping TypeName="CodingCookwareModel.ProductImage">
+              <MappingFragment StoreEntitySet="ProductImage">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="AlternateText" ColumnName="AlternateText" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="FulfilledDate" ColumnName="FulfilledDate" />
+                <ScalarProperty Name="SubmittedDate" ColumnName="SubmittedDate" />
+                <ScalarProperty Name="OrderIdentifier" ColumnName="OrderIdentifier" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseProducts">
+            <EntityTypeMapping TypeName="CodingCookwareModel.PurchaseProduct">
+              <MappingFragment StoreEntitySet="PurchaseProduct">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseProductShipments">
+            <EntityTypeMapping TypeName="CodingCookwareModel.PurchaseProductShipment">
+              <MappingFragment StoreEntitySet="PurchaseProductShipment">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="PurchaseProductID" ColumnName="PurchaseProductID" />
+                <ScalarProperty Name="ShipmentID" ColumnName="ShipmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipments">
+            <EntityTypeMapping TypeName="CodingCookwareModel.Shipment">
+              <MappingFragment StoreEntitySet="Shipment">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="EstimatedDeliveryDate" ColumnName="EstimatedDeliveryDate" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CodingCookwareModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

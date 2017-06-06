@@ -15,10 +15,10 @@ namespace CodingTemple.CodingCookware.Web
             
             if (filterContext.RequestContext.HttpContext.Request.Cookies.AllKeys.Contains("cart"))
             {
-                HttpCookie cartCookie = filterContext.RequestContext.HttpContext.Request.Cookies["cart"];
-                var cookieValues = cartCookie.Value.Split(',');
-                int quantity = int.Parse(cookieValues[1]);
-                filterContext.Controller.ViewBag.CartItemCount = quantity;
+                //HttpCookie cartCookie = filterContext.RequestContext.HttpContext.Request.Cookies["cart"];
+                //var cookieValues = cartCookie.Value.Split(',');
+                //int quantity = int.Parse(cookieValues[1]);
+                //filterContext.Controller.ViewBag.CartItemCount = quantity;
             }
                    
         }

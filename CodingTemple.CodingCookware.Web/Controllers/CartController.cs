@@ -10,35 +10,31 @@ namespace CodingTemple.CodingCookware.Web.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        
+        CodingCookwareEntities entities = new CodingCookwareEntities();
+        protected override void Dispose(bool disposing)
+        {
+            entities.Dispose();
+            base.Dispose(disposing);
+        }
+
         public ActionResult Index()
         {
-            List<CartProductModel> cartProducts = new List<CartProductModel>();
+            
             if (Request.Cookies.AllKeys.Contains("cart"))
             {
                 HttpCookie cartCookie = Request.Cookies["cart"];
                 //CartCookie comes in with "2,1", meaning productId = 2, quantity = 1
-                var cookieValues = cartCookie.Value.Split(',');
-                int productId = int.Parse(cookieValues[0]);
-                int quantity = int.Parse(cookieValues[1]);
-                ProductModel product = ProductData.Products
-                    .First(x => x.ID == productId);
-                CartProductModel cartProduct = new CartProductModel();
-                cartProduct.Description = product.Description;
-                cartProduct.ID = product.ID;
-                cartProduct.Name = product.Name;
-                cartProduct.Price = product.Price;
-                cartProduct.Quantity = quantity;
-
-                cartProducts.Add(cartProduct);
+                int cartId = int.Parse(Request.Cookies["cart"].Value);
+                var basket = entities.Baskets.Find(cartId);
+                return View(basket.BasketProducts);
             }
 
-            return View(cartProducts);
+            return View(new BasketProduct[0]);
         }
 
         // POST: Cart
         [HttpPost]
-        public ActionResult Index(CartProductModel[] model, int? quantity)
+        public ActionResult Index(BasketProduct[] model, int? quantity)
         {
 
             HttpCookie cartCookie = Request.Cookies["cart"];

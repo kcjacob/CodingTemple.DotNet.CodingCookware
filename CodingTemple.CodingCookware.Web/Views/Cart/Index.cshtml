@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.CartProductModel>
+﻿@model IEnumerable<CodingTemple.CodingCookware.Web.Models.BasketProduct>
 @{
     ViewBag.Title = "Index";
     decimal totalCost = 0m;
     foreach (var product in Model)
     {
-        totalCost += (product.Price ?? 0) * product.Quantity;
+        totalCost += (product.Product.Price ?? 0) * product.Quantity;
     }
 }
 
@@ -36,12 +36,12 @@ else
                 {
                     <tr>
                         <td></td>
-                        <td>@Model.ElementAt(i).Name</td>
-                        <td>@Model.ElementAt(i).Description</td>
-                        <td>@((Model.ElementAt(i).Price ?? 0).ToString("c"))</td>
+                        <td>@Model.ElementAt(i).Product.Name</td>
+                        <td>@Model.ElementAt(i).Product.Description</td>
+                        <td>@((Model.ElementAt(i).Product.Price ?? 0).ToString("c"))</td>
                         <td>@Html.TextBoxFor(m => m.ElementAt(i).Quantity, new { @class ="form-control" })</td>
                         @* the above line will render out <input type="text" name="model[0].quantity" class="form-control" />*@
-                        <td>@(((Model.ElementAt(i).Price ?? 0) * Model.ElementAt(i).Quantity).ToString("c"))</td>
+                        <td>@(((Model.ElementAt(i).Product.Price ?? 0) * Model.ElementAt(i).Quantity).ToString("c"))</td>
                     </tr>
                 }
             </tbody>

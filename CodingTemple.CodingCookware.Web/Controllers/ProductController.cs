@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CodingTemple.CodingCookware.Web.Models;
 
 namespace CodingTemple.CodingCookware.Web.Controllers
 {
     public class ProductController : Controller
     {
-
+        CodingCookwareEntities entities = new CodingCookwareEntities();
         // GET: Product
-        [OutputCache(Duration = 300)]
+        //[OutputCache(Duration = 300)]
         public ActionResult Index(int? id)
         {
-            if (!Models.ProductData.Products.Any(x => x.ID == id))
+            
+            if (!entities.Products.Any(x => x.ID == id))
             {
                 return HttpNotFound("Product doesn't exist");
             }
             else
             {
-                return View(Models.ProductData.Products.First(x => x.ID == id));
+                return View(entities.Products.Find(id));
             }
         }
          
@@ -38,12 +40,50 @@ namespace CodingTemple.CodingCookware.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(Models.ProductModel model, int? quantity)
+        public ActionResult Index(Models.Product model, int? quantity)
         {
             //TODO: add this product to the current user's cart
-            HttpCookie cookie = new HttpCookie("cart", model.ID.ToString() + "," + quantity.Value.ToString());
-            Response.SetCookie(cookie);
+            Basket b = null;
+            if (Request.Cookies.AllKeys.Contains("cart"))
+            {
+                int cartId = int.Parse(Request.Cookies["cart"].Value);
+                b = entities.Baskets.Find(cartId);
+            }
+            else
+            {
+                b = new Basket();
+                b.Created = DateTime.UtcNow;
+                b.Modified = DateTime.UtcNow;
+                entities.Baskets.Add(b);
+                entities.SaveChanges();
+                Response.Cookies.Add(new HttpCookie("cart", b.ID.ToString()));
+            }
+            BasketProduct p = b.BasketProducts.FirstOrDefault(x => x.ProductID == model.ID);
+            if(p != null)
+            {
+                p.Quantity += quantity ?? 1;
+   
+            }
+            else
+            {
+                p = new BasketProduct
+                {
+                    ProductID = model.ID,
+                    Quantity = quantity ?? 1,
+                    Created = DateTime.UtcNow,
+                    Modified = DateTime.UtcNow
+                };
+                b.BasketProducts.Add(p);
+            }
+            b.Modified = DateTime.UtcNow;
+            entities.SaveChanges();
             return RedirectToAction("Index", "Cart");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            entities.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
