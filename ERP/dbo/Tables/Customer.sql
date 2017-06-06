@@ -5,3 +5,10 @@
     CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_CustomerEmail]
+    ON [dbo].[Customer]([Email] ASC);
+

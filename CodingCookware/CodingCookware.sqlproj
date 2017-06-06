@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>ERP</Name>
+    <Name>CodingCookware</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{1c35b045-59b0-4406-af7d-3d87d1e7224f}</ProjectGuid>
+    <ProjectGuid>{ee44a3cc-bd85-4804-96b2-a9b00c0c1093}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>ERP</RootNamespace>
-    <AssemblyName>ERP</AssemblyName>
+    <RootNamespace>CodingCookware</RootNamespace>
+    <AssemblyName>CodingCookware</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -57,35 +57,24 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo\" />
-    <Folder Include="dbo\Tables\" />
-    <Folder Include="dbo\Stored Procedures\" />
-    <Folder Include="dbo\Views\" />
-    <Folder Include="Security\" />
-    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Store.sql" />
-    <Build Include="dbo\Tables\Shift.sql" />
-    <Build Include="dbo\Tables\Purchase.sql" />
-    <Build Include="dbo\Tables\ProductType.sql" />
-    <Build Include="dbo\Tables\Product.sql" />
-    <Build Include="dbo\Tables\Manufacturer.sql" />
-    <Build Include="dbo\Tables\Employee.sql" />
-    <Build Include="dbo\Tables\CustomerAddress.sql" />
-    <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\Account.sql" />
+    <Build Include="dbo\Tables\AccountUser.sql" />
     <Build Include="dbo\Tables\Address.sql" />
-    <Build Include="dbo\Stored Procedures\sp_GetStores.sql" />
-    <Build Include="dbo\Stored Procedures\sp_GetStoreRevenue.sql" />
-    <Build Include="dbo\Stored Procedures\sp_GetPurchasesByEmail.sql" />
-    <Build Include="dbo\Stored Procedures\sp_GetEmployeesWorking.sql" />
-    <Build Include="dbo\Stored Procedures\sp_AddStoreWithAddress.sql" />
-    <Build Include="dbo\Tables\AddressHistory.sql" />
-    <Build Include="dbo\Views\vw_NewID.sql" />
-    <Build Include="dbo\Views\vw_AddressCities.sql" />
-    <Build Include="dbo\Functions\fn_ShortIdentifier.sql" />
+    <Build Include="dbo\Tables\AccountAddress.sql" />
+    <Build Include="dbo\Tables\Product.sql" />
+    <Build Include="dbo\Tables\Category.sql" />
+    <Build Include="dbo\Tables\CategoryProduct.sql" />
+    <Build Include="dbo\Tables\Basket.sql" />
+    <Build Include="dbo\Tables\Purchase.sql" />
+    <Build Include="dbo\Tables\BasketProduct.sql" />
+    <Build Include="dbo\Tables\PurchaseProduct.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="dbo\Script.DataInsert.sql" />
+    <RefactorLog Include="CodingCookware.refactorlog" />
   </ItemGroup>
 </Project>

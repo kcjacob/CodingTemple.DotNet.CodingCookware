@@ -3,3 +3,6 @@
 AS
 
 SELECT ID, [Name] FROM Store
+GO
+
+

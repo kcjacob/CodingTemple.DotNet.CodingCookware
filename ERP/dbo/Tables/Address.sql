@@ -8,3 +8,16 @@
     CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
+
+
+
+GO
+
+CREATE TRIGGER TR_AddressChanges ON [Address] AFTER INSERT, UPDATE
+as
+begin
+  insert into AddressHistory 
+  (ID, TimeStamp, Line1, Line2, City, State, Zip )
+  select i.ID, GetDate(), i.Line1, i.Line2, i.City, i.State, i.Zip 
+  from  inserted i
+end
