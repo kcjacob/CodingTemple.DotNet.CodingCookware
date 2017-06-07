@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[ProductImage]
 (
-	[ID] INT NOT NULL, 
+	[ID] INT IDENTITY(1,1) NOT NULL, 
     [ProductID] INT NOT NULL, 
 	[URL] NVARCHAR(1000) NOT NULL,
 	[AlternateText] NVARCHAR(1000) NULL,

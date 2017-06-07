@@ -159,10 +159,12 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CategoryAdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\ErpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Api\ProductDataController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -393,6 +395,16 @@
     <Content Include="Views\Shared\_Cart.cshtml" />
     <Content Include="Views\Erp\Index.cshtml" />
     <Content Include="Views\Erp\Revenues.cshtml" />
+    <Content Include="Views\CategoryAdmin\Create.cshtml" />
+    <Content Include="Views\CategoryAdmin\Delete.cshtml" />
+    <Content Include="Views\CategoryAdmin\Details.cshtml" />
+    <Content Include="Views\CategoryAdmin\Edit.cshtml" />
+    <Content Include="Views\CategoryAdmin\Index.cshtml" />
+    <Content Include="Views\ProductAdmin\Create.cshtml" />
+    <Content Include="Views\ProductAdmin\Delete.cshtml" />
+    <Content Include="Views\ProductAdmin\Details.cshtml" />
+    <Content Include="Views\ProductAdmin\Edit.cshtml" />
+    <Content Include="Views\ProductAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

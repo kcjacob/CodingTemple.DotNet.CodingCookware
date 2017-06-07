@@ -14,19 +14,22 @@ namespace CodingTemple.CodingCookware.Web.Controllers
             entities.Dispose();
             base.Dispose(disposing);
         }
-        // GET: Category
+        
+        
         public ActionResult Index(string id)
         {
-            if (!string.IsNullOrEmpty(id))
-            {
-                return View(entities.Categories.Find(id));
-            }
-            return View(new Models.Category
-            {
-                Category1 = entities.Categories.Where(x => x.Category2 == null).ToList(),
-                Products = entities.Products.Where(x => !x.Categories.Any()).ToList(),
-                ID = ""
-            });
+            
+                if (!string.IsNullOrEmpty(id))
+                {
+                    return View(entities.Categories.Find(id));
+                }
+                return View(new Models.Category
+                {
+                    Category1 = entities.Categories.Where(x => x.Category2 == null).ToList(),
+                    Products = entities.Products.ToList(),
+                    ID = ""
+                });
+            
         }
     }
 }

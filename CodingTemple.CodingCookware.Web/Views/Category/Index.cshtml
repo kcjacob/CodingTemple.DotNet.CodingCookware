@@ -18,11 +18,11 @@
     breadcrumb.Reverse();
 }
 <div class="row">
-    
+    <div class="col-xs-12">
         <ol class="breadcrumb">
             @for (int i = 0; i < breadcrumb.Count; i++)
             {
-                if(i == breadcrumb.Count - 1)
+                if (i == breadcrumb.Count - 1)
                 {
                     <li class="active">@Html.ActionLink((string.IsNullOrEmpty(breadcrumb[i].ID) ? "Home" : breadcrumb[i].ID), "Index", new { ID = breadcrumb[i].ID })</li>
                 }
@@ -32,7 +32,7 @@
                 }
             }
         </ol>
-    
+    </div>
         @*<h2>@Html.ActionLink((string.IsNullOrEmpty(Model.ID) ? "Home" : Model.ID), "Index", new { id = Model.ID })</h2>*@
         <div class="col-xs-12 col-sm-3">
             <ul class="nav nav-pills nav-stacked">
@@ -46,21 +46,29 @@
                 
             </ul>
         </div>
-        @foreach (var product in Model.Products)
-        {
-            <div class="col-xs-12 col-sm-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">@product.Name</div>
-                    <div class="panel-body">
-                        <span>@((product.Price ?? 0).ToString("c"))</span>
-                        <p>@product.Description</p>
-                        @Html.ActionLink("View Product", "Index", "Product",
+    <div class="col-xs-12 col-sm-9">
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-xs-12 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@product.Name</div>
+                        <div class="panel-body">
+                            @if (@product.ProductImages.Any())
+                            {
+                                <img class="img-responsive" src="@product.ProductImages.First().URL" alt="@product.ProductImages.First().AlternateText" />
+                            }
+                            <span>@((product.Price ?? 0).ToString("c"))</span>
+                            <p>@product.Description</p>
+                            @Html.ActionLink("View Product", "Index", "Product",
             new { id = product.ID },
             new { @class = "btn btn-primary" })
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+    </div>
 
 
     
