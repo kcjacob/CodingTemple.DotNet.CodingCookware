@@ -14,24 +14,13 @@
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
         </EntityType>
-        <EntityType Name="AccountAddress">
+        <EntityType Name="AccountAspNetUsers">
           <Key>
-            <PropertyRef Name="AccountID" />
-            <PropertyRef Name="AddressID" />
-          </Key>
-          <Property Name="AccountID" Type="int" Nullable="false" />
-          <Property Name="AddressID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AccountUser">
-          <Key>
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="AspNetUserID" />
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AccountID" Type="int" Nullable="false" />
-          <Property Name="PrimaryUser" Type="bit" Nullable="false" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Modified" Type="datetime" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -47,12 +36,71 @@
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
         </EntityType>
+        <EntityType Name="AddressAspNetUsers">
+          <Key>
+            <PropertyRef Name="AspNetUserID" />
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="Basket">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AccountID" Type="int" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
@@ -112,6 +160,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" />
           <Property Name="OrderIdentifier" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="SubmittedDate" Type="datetime" Nullable="false" />
           <Property Name="FulfilledDate" Type="datetime" />
@@ -148,7 +197,7 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="ParentID" Type="int" />
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Approved" Type="bit" />
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
@@ -172,41 +221,31 @@
           <Property Name="PostalCode" Type="nvarchar" MaxLength="20" />
           <Property Name="Country" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Modified" Type="datetime" />
-        </EntityType>
-        <Association Name="FK_AccountAddress_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AccountAddress" Type="Self.AccountAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AccountAddress">
-              <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AccountAddress_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AccountAddress" Type="Self.AccountAddress" Multiplicity="*" />
+          <End Role="AddressAspNetUsers" Type="Self.AddressAspNetUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="AccountAddress">
+            <Dependent Role="AddressAspNetUsers">
               <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountAddress_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AddressAspNetUsers" Type="Self.AddressAspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AddressAspNetUsers">
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -214,39 +253,39 @@
           <End Role="Account" Type="Self.Account" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AccountUser" Type="Self.AccountUser" Multiplicity="*" />
+          <End Role="AccountAspNetUsers" Type="Self.AccountAspNetUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="AccountUser">
+            <Dependent Role="AccountAspNetUsers">
               <PropertyRef Name="AccountID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AccountUser_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AccountUser" Type="Self.AccountUser" Multiplicity="*" />
+          <End Role="AccountAspNetUsers" Type="Self.AccountAspNetUsers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AccountUser">
-              <PropertyRef Name="UserID" />
+            <Dependent Role="AccountAspNetUsers">
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Basket_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+        <Association Name="FK_Basket_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Basket">
-              <PropertyRef Name="AccountID" />
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -318,6 +357,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductImage_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -329,6 +424,18 @@
             </Principal>
             <Dependent Role="ProductImage">
               <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -413,24 +520,29 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Review">
-              <PropertyRef Name="UserID" />
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CodingCookwareModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AccountAddress" EntityType="Self.AccountAddress" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AccountUser" EntityType="Self.AccountUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountAspNetUsers" EntityType="Self.AccountAspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddressAspNetUsers" EntityType="Self.AddressAspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BasketProduct" EntityType="Self.BasketProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -442,25 +554,24 @@
           <EntitySet Name="PurchaseProductShipment" EntityType="Self.PurchaseProductShipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipment" EntityType="Self.Shipment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AccountAddress_Account" Association="Self.FK_AccountAddress_Account">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="AccountAddress" EntitySet="AccountAddress" />
-          </AssociationSet>
           <AssociationSet Name="FK_AccountAddress_Address" Association="Self.FK_AccountAddress_Address">
             <End Role="Address" EntitySet="Address" />
-            <End Role="AccountAddress" EntitySet="AccountAddress" />
+            <End Role="AddressAspNetUsers" EntitySet="AddressAspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountAddress_AspNetUsers" Association="Self.FK_AccountAddress_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AddressAspNetUsers" EntitySet="AddressAspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountUser_Account" Association="Self.FK_AccountUser_Account">
             <End Role="Account" EntitySet="Account" />
-            <End Role="AccountUser" EntitySet="AccountUser" />
+            <End Role="AccountAspNetUsers" EntitySet="AccountAspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountUser_User" Association="Self.FK_AccountUser_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="AccountUser" EntitySet="AccountUser" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AccountAspNetUsers" EntitySet="AccountAspNetUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Basket_Account" Association="Self.FK_Basket_Account">
-            <End Role="Account" EntitySet="Account" />
+          <AssociationSet Name="FK_Basket_AspNetUsers" Association="Self.FK_Basket_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
           <AssociationSet Name="FK_BasketProduct_Basket" Association="Self.FK_BasketProduct_Basket">
@@ -483,9 +594,29 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="CategoryProduct" EntitySet="CategoryProduct" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductImage_Product" Association="Self.FK_ProductImage_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductImage" EntitySet="ProductImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_AspNetUsers" Association="Self.FK_Purchase_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Purchase" EntitySet="Purchase" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchaseProduct_Product" Association="Self.FK_PurchaseProduct_Product">
             <End Role="Product" EntitySet="Product" />
@@ -512,7 +643,7 @@
             <End Role="Review1" EntitySet="Review" />
           </AssociationSet>
           <AssociationSet Name="FK_Review_User" Association="Self.FK_Review_User">
-            <End Role="User" EntitySet="User" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
         </EntityContainer>
@@ -522,8 +653,11 @@
       <Schema Namespace="CodingCookwareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CodingCookwareEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="CodingCookwareModel.Account" />
-          <EntitySet Name="AccountUsers" EntityType="CodingCookwareModel.AccountUser" />
           <EntitySet Name="Addresses" EntityType="CodingCookwareModel.Address" />
+          <EntitySet Name="AspNetRoles" EntityType="CodingCookwareModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="CodingCookwareModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="CodingCookwareModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="CodingCookwareModel.AspNetUser" />
           <EntitySet Name="Baskets" EntityType="CodingCookwareModel.Basket" />
           <EntitySet Name="BasketProducts" EntityType="CodingCookwareModel.BasketProduct" />
           <EntitySet Name="Categories" EntityType="CodingCookwareModel.Category" />
@@ -534,18 +668,25 @@
           <EntitySet Name="PurchaseProductShipments" EntityType="CodingCookwareModel.PurchaseProductShipment" />
           <EntitySet Name="Reviews" EntityType="CodingCookwareModel.Review" />
           <EntitySet Name="Shipments" EntityType="CodingCookwareModel.Shipment" />
-          <EntitySet Name="Users" EntityType="CodingCookwareModel.User" />
-          <AssociationSet Name="FK_AccountUser_Account" Association="CodingCookwareModel.FK_AccountUser_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="AccountUser" EntitySet="AccountUsers" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="CodingCookwareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
           </AssociationSet>
-          <AssociationSet Name="FK_Basket_Account" Association="CodingCookwareModel.FK_Basket_Account">
-            <End Role="Account" EntitySet="Accounts" />
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="CodingCookwareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_AspNetUsers" Association="CodingCookwareModel.FK_Basket_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Basket" EntitySet="Baskets" />
           </AssociationSet>
-          <AssociationSet Name="FK_AccountUser_User" Association="CodingCookwareModel.FK_AccountUser_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="AccountUser" EntitySet="AccountUsers" />
+          <AssociationSet Name="FK_Purchase_AspNetUsers" Association="CodingCookwareModel.FK_Purchase_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_User" Association="CodingCookwareModel.FK_Review_User">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
           <AssociationSet Name="FK_BasketProduct_Basket" Association="CodingCookwareModel.FK_BasketProduct_Basket">
             <End Role="Basket" EntitySet="Baskets" />
@@ -587,13 +728,17 @@
             <End Role="Review" EntitySet="Reviews" />
             <End Role="Review1" EntitySet="Reviews" />
           </AssociationSet>
-          <AssociationSet Name="FK_Review_User" Association="CodingCookwareModel.FK_Review_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Review" EntitySet="Reviews" />
-          </AssociationSet>
-          <AssociationSet Name="AccountAddress" Association="CodingCookwareModel.AccountAddress">
+          <AssociationSet Name="AccountAspNetUsers" Association="CodingCookwareModel.AccountAspNetUsers">
             <End Role="Account" EntitySet="Accounts" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AddressAspNetUsers" Association="CodingCookwareModel.AddressAspNetUsers">
             <End Role="Address" EntitySet="Addresses" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="CodingCookwareModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="CategoryProduct" Association="CodingCookwareModel.CategoryProduct">
             <End Role="Category" EntitySet="Categories" />
@@ -608,22 +753,7 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AccountUsers" Relationship="CodingCookwareModel.FK_AccountUser_Account" FromRole="Account" ToRole="AccountUser" />
-          <NavigationProperty Name="Baskets" Relationship="CodingCookwareModel.FK_Basket_Account" FromRole="Account" ToRole="Basket" />
-          <NavigationProperty Name="Addresses" Relationship="CodingCookwareModel.AccountAddress" FromRole="Account" ToRole="Address" />
-        </EntityType>
-        <EntityType Name="AccountUser">
-          <Key>
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="AccountID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="AccountID" Type="Int32" Nullable="false" />
-          <Property Name="PrimaryUser" Type="Boolean" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="CodingCookwareModel.FK_AccountUser_Account" FromRole="AccountUser" ToRole="Account" />
-          <NavigationProperty Name="User" Relationship="CodingCookwareModel.FK_AccountUser_User" FromRole="AccountUser" ToRole="User" />
+          <NavigationProperty Name="AspNetUsers" Relationship="CodingCookwareModel.AccountAspNetUsers" FromRole="Account" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -638,18 +768,72 @@
           <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Accounts" Relationship="CodingCookwareModel.AccountAddress" FromRole="Address" ToRole="Account" />
+          <NavigationProperty Name="AspNetUsers" Relationship="CodingCookwareModel.AddressAspNetUsers" FromRole="Address" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="CodingCookwareModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="CodingCookwareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="CodingCookwareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="CodingCookwareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="CodingCookwareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Baskets" Relationship="CodingCookwareModel.FK_Basket_AspNetUsers" FromRole="AspNetUser" ToRole="Basket" />
+          <NavigationProperty Name="Purchases" Relationship="CodingCookwareModel.FK_Purchase_AspNetUsers" FromRole="AspNetUser" ToRole="Purchase" />
+          <NavigationProperty Name="Reviews" Relationship="CodingCookwareModel.FK_Review_User" FromRole="AspNetUser" ToRole="Review" />
+          <NavigationProperty Name="Accounts" Relationship="CodingCookwareModel.AccountAspNetUsers" FromRole="AspNetUser" ToRole="Account" />
+          <NavigationProperty Name="Addresses" Relationship="CodingCookwareModel.AddressAspNetUsers" FromRole="AspNetUser" ToRole="Address" />
+          <NavigationProperty Name="AspNetRoles" Relationship="CodingCookwareModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <EntityType Name="Basket">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AccountID" Type="Int32" />
+          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="CodingCookwareModel.FK_Basket_Account" FromRole="Basket" ToRole="Account" />
+          <NavigationProperty Name="AspNetUser" Relationship="CodingCookwareModel.FK_Basket_AspNetUsers" FromRole="Basket" ToRole="AspNetUser" />
           <NavigationProperty Name="BasketProducts" Relationship="CodingCookwareModel.FK_BasketProduct_Basket" FromRole="Basket" ToRole="BasketProduct" />
         </EntityType>
         <EntityType Name="BasketProduct">
@@ -697,7 +881,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="URL" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="AlternateText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
@@ -710,11 +894,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="OrderIdentifier" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SubmittedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FulfilledDate" Type="DateTime" Precision="3" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="CodingCookwareModel.FK_Purchase_AspNetUsers" FromRole="Purchase" ToRole="AspNetUser" />
           <NavigationProperty Name="PurchaseProducts" Relationship="CodingCookwareModel.FK_PurchaseProduct_Purchase" FromRole="Purchase" ToRole="PurchaseProduct" />
         </EntityType>
         <EntityType Name="PurchaseProduct">
@@ -752,14 +938,14 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="ParentID" Type="Int32" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AspNetUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Approved" Type="Boolean" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="CodingCookwareModel.FK_Review_User" FromRole="Review" ToRole="AspNetUser" />
           <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_Review_Product" FromRole="Review" ToRole="Product" />
           <NavigationProperty Name="Review1" Relationship="CodingCookwareModel.FK_Review_Review" FromRole="Review" ToRole="Review1" />
           <NavigationProperty Name="Review2" Relationship="CodingCookwareModel.FK_Review_Review" FromRole="Review1" ToRole="Review" />
-          <NavigationProperty Name="User" Relationship="CodingCookwareModel.FK_Review_User" FromRole="Review" ToRole="User" />
         </EntityType>
         <EntityType Name="Shipment">
           <Key>
@@ -781,55 +967,69 @@
           <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PurchaseProductShipments" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" FromRole="Shipment" ToRole="PurchaseProductShipment" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AccountUsers" Relationship="CodingCookwareModel.FK_AccountUser_User" FromRole="User" ToRole="AccountUser" />
-          <NavigationProperty Name="Reviews" Relationship="CodingCookwareModel.FK_Review_User" FromRole="User" ToRole="Review" />
-        </EntityType>
-        <Association Name="FK_AccountUser_Account">
-          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="1">
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="CodingCookwareModel.AccountUser" Role="AccountUser" Multiplicity="*" />
+          <End Type="CodingCookwareModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AccountUser">
-              <PropertyRef Name="AccountID" />
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Basket_Account">
-          <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="0..1" />
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingCookwareModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_AspNetUsers">
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
           <End Type="CodingCookwareModel.Basket" Role="Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Basket">
-              <PropertyRef Name="AccountID" />
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AccountUser_User">
-          <End Type="CodingCookwareModel.User" Role="User" Multiplicity="1">
+        <Association Name="FK_Purchase_AspNetUsers">
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="CodingCookwareModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="AspNetUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_User">
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="CodingCookwareModel.AccountUser" Role="AccountUser" Multiplicity="*" />
+          <End Type="CodingCookwareModel.Review" Role="Review" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AccountUser">
-              <PropertyRef Name="UserID" />
+            <Dependent Role="Review">
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -967,23 +1167,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Review_User">
-          <End Type="CodingCookwareModel.User" Role="User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.Review" Role="Review" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Review">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AccountAddress">
+        <Association Name="AccountAspNetUsers">
           <End Type="CodingCookwareModel.Account" Role="Account" Multiplicity="*" />
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="AddressAspNetUsers">
           <End Type="CodingCookwareModel.Address" Role="Address" Multiplicity="*" />
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="CodingCookwareModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
         <Association Name="CategoryProduct">
           <End Type="CodingCookwareModel.Category" Role="Category" Multiplicity="*" />
@@ -1005,17 +1199,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AccountUsers">
-            <EntityTypeMapping TypeName="CodingCookwareModel.AccountUser">
-              <MappingFragment StoreEntitySet="AccountUser">
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="PrimaryUser" ColumnName="PrimaryUser" />
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="CodingCookwareModel.Address">
               <MappingFragment StoreEntitySet="Address">
@@ -1031,13 +1214,58 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="CodingCookwareModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="CodingCookwareModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="CodingCookwareModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="CodingCookwareModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Baskets">
             <EntityTypeMapping TypeName="CodingCookwareModel.Basket">
               <MappingFragment StoreEntitySet="Basket">
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="AspNetUserID" ColumnName="AspNetUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1095,6 +1323,7 @@
                 <ScalarProperty Name="FulfilledDate" ColumnName="FulfilledDate" />
                 <ScalarProperty Name="SubmittedDate" ColumnName="SubmittedDate" />
                 <ScalarProperty Name="OrderIdentifier" ColumnName="OrderIdentifier" />
+                <ScalarProperty Name="AspNetUserID" ColumnName="AspNetUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1129,7 +1358,7 @@
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AspNetUserID" ColumnName="AspNetUserID" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1156,23 +1385,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="CodingCookwareModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AccountAddress" TypeName="CodingCookwareModel.AccountAddress" StoreEntitySet="AccountAddress">
-            <EndProperty Name="Address">
-              <ScalarProperty Name="ID" ColumnName="AddressID" />
+          <AssociationSetMapping Name="AccountAspNetUsers" TypeName="CodingCookwareModel.AccountAspNetUsers" StoreEntitySet="AccountAspNetUsers">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="AspNetUserID" />
             </EndProperty>
             <EndProperty Name="Account">
               <ScalarProperty Name="ID" ColumnName="AccountID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AddressAspNetUsers" TypeName="CodingCookwareModel.AddressAspNetUsers" StoreEntitySet="AddressAspNetUsers">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="AspNetUserID" />
+            </EndProperty>
+            <EndProperty Name="Address">
+              <ScalarProperty Name="ID" ColumnName="AddressID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="CodingCookwareModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="CategoryProduct" TypeName="CodingCookwareModel.CategoryProduct" StoreEntitySet="CategoryProduct">

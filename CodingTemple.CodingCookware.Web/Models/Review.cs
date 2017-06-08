@@ -23,15 +23,15 @@ namespace CodingTemple.CodingCookware.Web.Models
         public int ID { get; set; }
         public int ProductID { get; set; }
         public Nullable<int> ParentID { get; set; }
-        public int UserID { get; set; }
+        public string AspNetUserID { get; set; }
         public Nullable<bool> Approved { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Review1 { get; set; }
         public virtual Review Review2 { get; set; }
-        public virtual User User { get; set; }
     }
 }

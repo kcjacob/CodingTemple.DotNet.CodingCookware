@@ -44,16 +44,25 @@ namespace CodingTemple.CodingCookware.Web.Controllers
         {
             //TODO: add this product to the current user's cart
             Basket b = null;
-            if (Request.Cookies.AllKeys.Contains("cart"))
+            if (User.Identity.IsAuthenticated)
+            {
+                b = entities.AspNetUsers.FirstOrDefault(x => x.UserName == User.Identity.Name).Baskets.FirstOrDefault();
+            }
+            else if (Request.Cookies.AllKeys.Contains("cart"))
             {
                 int cartId = int.Parse(Request.Cookies["cart"].Value);
                 b = entities.Baskets.Find(cartId);
             }
-            else
+
+            if (b == null)
             {
                 b = new Basket();
                 b.Created = DateTime.UtcNow;
                 b.Modified = DateTime.UtcNow;
+                if (User.Identity.IsAuthenticated)
+                {
+                    b.AspNetUserID = entities.AspNetUsers.FirstOrDefault(x => x.UserName == User.Identity.Name).Id;
+                }
                 entities.Baskets.Add(b);
                 entities.SaveChanges();
                 Response.Cookies.Add(new HttpCookie("cart", b.ID.ToString()));

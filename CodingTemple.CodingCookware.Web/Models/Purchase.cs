@@ -21,12 +21,14 @@ namespace CodingTemple.CodingCookware.Web.Models
         }
     
         public int ID { get; set; }
+        public string AspNetUserID { get; set; }
         public string OrderIdentifier { get; set; }
         public System.DateTime SubmittedDate { get; set; }
         public Nullable<System.DateTime> FulfilledDate { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseProduct> PurchaseProducts { get; set; }
     }

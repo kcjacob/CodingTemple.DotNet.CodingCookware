@@ -17,7 +17,7 @@ namespace CodingTemple.CodingCookware.Web.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Address()
         {
-            this.Accounts = new HashSet<Account>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
         public int ID { get; set; }
@@ -31,6 +31,6 @@ namespace CodingTemple.CodingCookware.Web.Models
         public Nullable<System.DateTime> Modified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

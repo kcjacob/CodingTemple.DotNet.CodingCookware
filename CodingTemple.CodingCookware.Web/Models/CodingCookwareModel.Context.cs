@@ -26,8 +26,11 @@ namespace CodingTemple.CodingCookware.Web.Models
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<AccountUser> AccountUsers { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<BasketProduct> BasketProducts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -38,6 +41,5 @@ namespace CodingTemple.CodingCookware.Web.Models
         public virtual DbSet<PurchaseProductShipment> PurchaseProductShipments { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Shipment> Shipments { get; set; }
-        public virtual DbSet<User> Users { get; set; }
     }
 }

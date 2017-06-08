@@ -10,6 +10,7 @@ using CodingTemple.CodingCookware.Web.Models;
 
 namespace CodingTemple.CodingCookware.Web.Controllers
 {
+    [Authorize(Roles ="Administrator, CategoryAdministrator, noob")]
     public class CategoryAdminController : Controller
     {
         private CodingCookwareEntities db = new CodingCookwareEntities();

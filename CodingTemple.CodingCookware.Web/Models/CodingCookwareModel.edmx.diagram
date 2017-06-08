@@ -5,23 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="90e5d41f04f241ddb570ae736f17464c" Name="Diagram1">
-        <EntityTypeShape EntityType="CodingCookwareModel.Account" Width="1.5" PointX="1.5" PointY="1" />
-        <EntityTypeShape EntityType="CodingCookwareModel.AccountUser" Width="1.5" PointX="6.75" PointY="1.875" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Address" Width="1.5" PointX="3.75" PointY="12.5" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Basket" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CodingCookwareModel.BasketProduct" Width="1.5" PointX="6" PointY="8.75" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Category" Width="1.5" PointX="1.5" PointY="12.75" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Product" Width="1.5" PointX="0.75" PointY="8.375" />
-        <EntityTypeShape EntityType="CodingCookwareModel.ProductImage" Width="1.5" PointX="3" PointY="19.625" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Purchase" Width="1.5" PointX="0.75" PointY="16.75" />
-        <EntityTypeShape EntityType="CodingCookwareModel.PurchaseProduct" Width="1.5" PointX="3" PointY="8.375" />
-        <EntityTypeShape EntityType="CodingCookwareModel.PurchaseProductShipment" Width="1.5" PointX="5.25" PointY="5.875" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Review" Width="1.5" PointX="3" PointY="4.375" />
-        <EntityTypeShape EntityType="CodingCookwareModel.Shipment" Width="1.5" PointX="3" PointY="23" />
-        <EntityTypeShape EntityType="CodingCookwareModel.User" Width="1.5" PointX="0.75" PointY="4.75" />
-        <AssociationConnector Association="CodingCookwareModel.FK_AccountUser_Account" />
-        <AssociationConnector Association="CodingCookwareModel.FK_Basket_Account" />
-        <AssociationConnector Association="CodingCookwareModel.FK_AccountUser_User" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Account" Width="1.5" PointX="0.75" PointY="13.625" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Address" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="CodingCookwareModel.AspNetRole" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="CodingCookwareModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="19.25" />
+        <EntityTypeShape EntityType="CodingCookwareModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="16.75" />
+        <EntityTypeShape EntityType="CodingCookwareModel.AspNetUser" Width="1.5" PointX="3" PointY="9.375" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Basket" Width="1.5" PointX="5.25" PointY="6.25" />
+        <EntityTypeShape EntityType="CodingCookwareModel.BasketProduct" Width="1.5" PointX="7.5" PointY="6.25" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Category" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Product" Width="1.5" PointX="5.25" PointY="1.875" />
+        <EntityTypeShape EntityType="CodingCookwareModel.ProductImage" Width="1.5" PointX="7.5" PointY="18.5" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Purchase" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="CodingCookwareModel.PurchaseProduct" Width="1.5" PointX="7.5" PointY="10.125" />
+        <EntityTypeShape EntityType="CodingCookwareModel.PurchaseProductShipment" Width="1.5" PointX="9.75" PointY="10.625" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Review" Width="1.5" PointX="8.25" PointY="14.25" />
+        <EntityTypeShape EntityType="CodingCookwareModel.Shipment" Width="1.5" PointX="7.5" PointY="0.75" />
+        <AssociationConnector Association="CodingCookwareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CodingCookwareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Basket_AspNetUsers" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Purchase_AspNetUsers" />
+        <AssociationConnector Association="CodingCookwareModel.FK_Review_User" />
         <AssociationConnector Association="CodingCookwareModel.FK_BasketProduct_Basket" />
         <AssociationConnector Association="CodingCookwareModel.FK_BasketProduct_Product" />
         <AssociationConnector Association="CodingCookwareModel.FK_Category_Category" />
@@ -32,8 +36,9 @@
         <AssociationConnector Association="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct" />
         <AssociationConnector Association="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" />
         <AssociationConnector Association="CodingCookwareModel.FK_Review_Review" />
-        <AssociationConnector Association="CodingCookwareModel.FK_Review_User" />
-        <AssociationConnector Association="CodingCookwareModel.AccountAddress" />
+        <AssociationConnector Association="CodingCookwareModel.AccountAspNetUsers" />
+        <AssociationConnector Association="CodingCookwareModel.AddressAspNetUsers" />
+        <AssociationConnector Association="CodingCookwareModel.AspNetUserRoles" />
         <AssociationConnector Association="CodingCookwareModel.CategoryProduct" />
       </Diagram>
     </edmx:Diagrams>

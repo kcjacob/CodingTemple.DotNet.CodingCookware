@@ -8,6 +8,19 @@ namespace CodingTemple.CodingCookware.Web.Controllers
 {
     public class AccountController : Controller
     {
+        //Declaratively allow only users who are logged in:
+        [Authorize]
+        public ActionResult Index()
+        {
+            //Explicitly redirecting is ok:
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("LogOn");
+            //}
+            return View();
+        }
+
+
         // GET: Account/Register
         public ActionResult Register()
         {
@@ -58,7 +71,7 @@ namespace CodingTemple.CodingCookware.Web.Controllers
 
         // POST Account/LogOn
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> LogOn(string username, string password, bool? staySignedIn)
+        public async System.Threading.Tasks.Task<ActionResult> LogOn(string username, string password, bool? staySignedIn, string returnUrl)
         {
 
             var userStore = new Microsoft.AspNet.Identity.EntityFramework.UserStore<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
@@ -80,8 +93,14 @@ namespace CodingTemple.CodingCookware.Web.Controllers
                 ViewBag.Error = new string[] {"Unable to Log In, check your username and password"};
                 return View();
             }
-
-            return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return Redirect(returnUrl);
+            }
 
         }
     }

@@ -199,22 +199,31 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AccountUser.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\Admin\Models\Address.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\AddressHistory.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Address.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Basket.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
@@ -270,35 +279,14 @@
     <Compile Include="Areas\Admin\Models\Product.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductImage.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\Admin\Models\ProductType.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\Purchase.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Purchase.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PurchaseProduct.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PurchaseProductShipment.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Review.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\Admin\Models\Shift.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Shipment.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\sp_GetEmployeesWorking_Result.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
@@ -315,7 +303,25 @@
     <Compile Include="Areas\Admin\Models\Store.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductImage.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Purchase.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseProduct.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseProductShipment.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Review.cs">
+      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shipment.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -436,6 +442,7 @@
     <Content Include="Views\ProductAdmin\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

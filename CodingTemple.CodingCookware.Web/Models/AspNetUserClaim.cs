@@ -12,15 +12,13 @@ namespace CodingTemple.CodingCookware.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AccountUser
+    public partial class AspNetUserClaim
     {
-        public int UserID { get; set; }
-        public int AccountID { get; set; }
-        public bool PrimaryUser { get; set; }
-        public Nullable<System.DateTime> Created { get; set; }
-        public Nullable<System.DateTime> Modified { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual Account Account { get; set; }
-        public virtual User User { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
