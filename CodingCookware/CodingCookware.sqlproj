@@ -77,6 +77,12 @@
     <Build Include="dbo\Tables\PurchaseProductShipment.sql" />
     <Build Include="dbo\Tables\ProductImage.sql" />
     <Build Include="dbo\Tables\Review.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CodingCookware.refactorlog" />
