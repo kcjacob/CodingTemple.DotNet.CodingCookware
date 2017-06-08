@@ -38,7 +38,6 @@ namespace CodingTemple.CodingCookware.Web.Models
         public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<PurchaseProduct> PurchaseProducts { get; set; }
-        public virtual DbSet<PurchaseProductShipment> PurchaseProductShipments { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Shipment> Shipments { get; set; }
     }

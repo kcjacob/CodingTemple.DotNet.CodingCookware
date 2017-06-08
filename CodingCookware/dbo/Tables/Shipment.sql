@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Shipment]
 (
-	[ID] INT NOT NULL, 
+	[ID] INT IDENTITY(1,1) NOT NULL, 
     [ShipDate] DATETIME NULL, 
     [DeliveryDate] DATETIME NULL, 
     [EstimatedDeliveryDate] DATETIME NULL, 

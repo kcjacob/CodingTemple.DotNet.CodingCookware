@@ -190,6 +190,7 @@
     <Compile Include="Controllers\CategoryAdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\CodingCookwareController.cs" />
     <Compile Include="Controllers\ErpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductAdminController.cs" />
@@ -211,7 +212,6 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
@@ -270,9 +270,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErpModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\ErpScheduleModel.cs" />
-    <Compile Include="Models\ErpRevenueModel.cs" />
-    <Compile Include="Models\ErpStoreModel.cs" />
+    <Compile Include="Areas\Admin\Models\ErpScheduleModel.cs" />
+    <Compile Include="Areas\Admin\Models\ErpRevenueModel.cs" />
+    <Compile Include="Areas\Admin\Models\ErpStoreModel.cs" />
     <Compile Include="Areas\Admin\Models\Manufacturer.cs">
       <DependentUpon>ErpModel.tt</DependentUpon>
     </Compile>
@@ -313,9 +313,6 @@
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchaseProduct.cs">
-      <DependentUpon>CodingCookwareModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PurchaseProductShipment.cs">
       <DependentUpon>CodingCookwareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Review.cs">
@@ -446,6 +443,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CodingCookware\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

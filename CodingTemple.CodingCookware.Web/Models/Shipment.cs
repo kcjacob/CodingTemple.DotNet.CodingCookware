@@ -17,7 +17,7 @@ namespace CodingTemple.CodingCookware.Web.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shipment()
         {
-            this.PurchaseProductShipments = new HashSet<PurchaseProductShipment>();
+            this.PurchaseProducts = new HashSet<PurchaseProduct>();
         }
     
         public int ID { get; set; }
@@ -36,6 +36,6 @@ namespace CodingTemple.CodingCookware.Web.Models
         public string Country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchaseProductShipment> PurchaseProductShipments { get; set; }
+        public virtual ICollection<PurchaseProduct> PurchaseProducts { get; set; }
     }
 }

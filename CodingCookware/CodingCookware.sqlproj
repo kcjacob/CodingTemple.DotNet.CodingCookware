@@ -73,7 +73,6 @@
     <Build Include="dbo\Tables\BasketProduct.sql" />
     <Build Include="dbo\Tables\PurchaseProduct.sql" />
     <Build Include="dbo\Tables\Shipment.sql" />
-    <Build Include="dbo\Tables\PurchaseProductShipment.sql" />
     <Build Include="dbo\Tables\ProductImage.sql" />
     <Build Include="dbo\Tables\Review.sql" />
     <Build Include="dbo\Tables\AspNetUsers.sql" />

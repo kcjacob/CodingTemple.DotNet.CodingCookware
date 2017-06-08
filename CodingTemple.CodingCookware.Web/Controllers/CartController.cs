@@ -7,29 +7,12 @@ using System.Web.Mvc;
 
 namespace CodingTemple.CodingCookware.Web.Controllers
 {
-    public class CartController : Controller
+    public class CartController : CodingCookwareController
     {
         // GET: Cart
-        CodingCookwareEntities entities = new CodingCookwareEntities();
-        protected override void Dispose(bool disposing)
-        {
-            entities.Dispose();
-            base.Dispose(disposing);
-        }
-
         public ActionResult Index()
         {
-            
-            if (Request.Cookies.AllKeys.Contains("cart"))
-            {
-                HttpCookie cartCookie = Request.Cookies["cart"];
-                //CartCookie comes in with "2,1", meaning productId = 2, quantity = 1
-                int cartId = int.Parse(Request.Cookies["cart"].Value);
-                var basket = entities.Baskets.Find(cartId);
-                return View(basket);
-            }
-
-            return View(new Basket  { BasketProducts = new BasketProduct[0] });
+            return View(CurrentBasket);
         }
 
         // POST: Cart
@@ -37,10 +20,7 @@ namespace CodingTemple.CodingCookware.Web.Controllers
         public ActionResult Index(Basket model)
         {
 
-            HttpCookie cartCookie = Request.Cookies["cart"];
-            //CartCookie comes in with "2,1", meaning productId = 2, quantity = 1
-            int cartId = int.Parse(Request.Cookies["cart"].Value);
-            var basket = entities.Baskets.Find(cartId);
+            var basket = CurrentBasket;
             foreach(var updatedProduct in model.BasketProducts)
             {
                 var product = basket.BasketProducts.FirstOrDefault(x => x.ProductID == updatedProduct.ProductID);
@@ -55,5 +35,6 @@ namespace CodingTemple.CodingCookware.Web.Controllers
             entities.SaveChanges();
             return RedirectToAction("Index");
         }
+        
     }
 }

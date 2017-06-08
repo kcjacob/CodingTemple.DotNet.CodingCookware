@@ -14,24 +14,18 @@ namespace CodingTemple.CodingCookware.Web.Models
     
     public partial class PurchaseProduct
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PurchaseProduct()
-        {
-            this.PurchaseProductShipments = new HashSet<PurchaseProductShipment>();
-        }
-    
         public int ID { get; set; }
         public int PurchaseID { get; set; }
         public Nullable<int> ProductID { get; set; }
         public string ProductName { get; set; }
         public Nullable<decimal> ProductPrice { get; set; }
         public int Quantity { get; set; }
+        public Nullable<int> ShipmentID { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual Purchase Purchase { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchaseProductShipment> PurchaseProductShipments { get; set; }
+        public virtual Shipment Shipment { get; set; }
     }
 }

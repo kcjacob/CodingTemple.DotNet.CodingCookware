@@ -177,16 +177,7 @@
           <Property Name="ProductName" Type="nvarchar" MaxLength="500" />
           <Property Name="ProductPrice" Type="money" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Modified" Type="datetime" />
-        </EntityType>
-        <EntityType Name="PurchaseProductShipment">
-          <Key>
-            <PropertyRef Name="ShipmentID" />
-            <PropertyRef Name="PurchaseProductID" />
-          </Key>
-          <Property Name="ShipmentID" Type="int" Nullable="false" />
-          <Property Name="PurchaseProductID" Type="int" Nullable="false" />
+          <Property Name="ShipmentID" Type="int" />
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
         </EntityType>
@@ -206,7 +197,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShipDate" Type="datetime" />
           <Property Name="DeliveryDate" Type="datetime" />
           <Property Name="EstimatedDeliveryDate" Type="datetime" />
@@ -465,30 +456,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PurchaseProductShipment_PurchaseProduct">
-          <End Role="PurchaseProduct" Type="Self.PurchaseProduct" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PurchaseProductShipment" Type="Self.PurchaseProductShipment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PurchaseProduct">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PurchaseProductShipment">
-              <PropertyRef Name="PurchaseProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseProductShipment_Shipment">
-          <End Role="Shipment" Type="Self.Shipment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PurchaseProductShipment" Type="Self.PurchaseProductShipment" Multiplicity="*" />
+        <Association Name="FK_PurchaseProduct_Shipment">
+          <End Role="Shipment" Type="Self.Shipment" Multiplicity="0..1" />
+          <End Role="PurchaseProduct" Type="Self.PurchaseProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipment">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="PurchaseProductShipment">
+            <Dependent Role="PurchaseProduct">
               <PropertyRef Name="ShipmentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -551,7 +526,6 @@
           <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurchaseProduct" EntityType="Self.PurchaseProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PurchaseProductShipment" EntityType="Self.PurchaseProductShipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipment" EntityType="Self.Shipment" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccountAddress_Address" Association="Self.FK_AccountAddress_Address">
@@ -626,13 +600,9 @@
             <End Role="Purchase" EntitySet="Purchase" />
             <End Role="PurchaseProduct" EntitySet="PurchaseProduct" />
           </AssociationSet>
-          <AssociationSet Name="FK_PurchaseProductShipment_PurchaseProduct" Association="Self.FK_PurchaseProductShipment_PurchaseProduct">
-            <End Role="PurchaseProduct" EntitySet="PurchaseProduct" />
-            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseProductShipment_Shipment" Association="Self.FK_PurchaseProductShipment_Shipment">
+          <AssociationSet Name="FK_PurchaseProduct_Shipment" Association="Self.FK_PurchaseProduct_Shipment">
             <End Role="Shipment" EntitySet="Shipment" />
-            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipment" />
+            <End Role="PurchaseProduct" EntitySet="PurchaseProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_Review_Product" Association="Self.FK_Review_Product">
             <End Role="Product" EntitySet="Product" />
@@ -665,7 +635,6 @@
           <EntitySet Name="ProductImages" EntityType="CodingCookwareModel.ProductImage" />
           <EntitySet Name="Purchases" EntityType="CodingCookwareModel.Purchase" />
           <EntitySet Name="PurchaseProducts" EntityType="CodingCookwareModel.PurchaseProduct" />
-          <EntitySet Name="PurchaseProductShipments" EntityType="CodingCookwareModel.PurchaseProductShipment" />
           <EntitySet Name="Reviews" EntityType="CodingCookwareModel.Review" />
           <EntitySet Name="Shipments" EntityType="CodingCookwareModel.Shipment" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="CodingCookwareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -716,13 +685,9 @@
             <End Role="Purchase" EntitySet="Purchases" />
             <End Role="PurchaseProduct" EntitySet="PurchaseProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_PurchaseProductShipment_PurchaseProduct" Association="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct">
-            <End Role="PurchaseProduct" EntitySet="PurchaseProducts" />
-            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseProductShipment_Shipment" Association="CodingCookwareModel.FK_PurchaseProductShipment_Shipment">
+          <AssociationSet Name="FK_PurchaseProduct_Shipment" Association="CodingCookwareModel.FK_PurchaseProduct_Shipment">
             <End Role="Shipment" EntitySet="Shipments" />
-            <End Role="PurchaseProductShipment" EntitySet="PurchaseProductShipments" />
+            <End Role="PurchaseProduct" EntitySet="PurchaseProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_Review_Review" Association="CodingCookwareModel.FK_Review_Review">
             <End Role="Review" EntitySet="Reviews" />
@@ -913,23 +878,12 @@
           <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ProductPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ShipmentID" Type="Int32" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="CodingCookwareModel.FK_PurchaseProduct_Product" FromRole="PurchaseProduct" ToRole="Product" />
           <NavigationProperty Name="Purchase" Relationship="CodingCookwareModel.FK_PurchaseProduct_Purchase" FromRole="PurchaseProduct" ToRole="Purchase" />
-          <NavigationProperty Name="PurchaseProductShipments" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct" FromRole="PurchaseProduct" ToRole="PurchaseProductShipment" />
-        </EntityType>
-        <EntityType Name="PurchaseProductShipment">
-          <Key>
-            <PropertyRef Name="ShipmentID" />
-            <PropertyRef Name="PurchaseProductID" />
-          </Key>
-          <Property Name="ShipmentID" Type="Int32" Nullable="false" />
-          <Property Name="PurchaseProductID" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PurchaseProduct" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_PurchaseProduct" FromRole="PurchaseProductShipment" ToRole="PurchaseProduct" />
-          <NavigationProperty Name="Shipment" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" FromRole="PurchaseProductShipment" ToRole="Shipment" />
+          <NavigationProperty Name="Shipment" Relationship="CodingCookwareModel.FK_PurchaseProduct_Shipment" FromRole="PurchaseProduct" ToRole="Shipment" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -951,7 +905,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShipDate" Type="DateTime" Precision="3" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
           <Property Name="EstimatedDeliveryDate" Type="DateTime" Precision="3" />
@@ -965,7 +919,7 @@
           <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PurchaseProductShipments" Relationship="CodingCookwareModel.FK_PurchaseProductShipment_Shipment" FromRole="Shipment" ToRole="PurchaseProductShipment" />
+          <NavigationProperty Name="PurchaseProducts" Relationship="CodingCookwareModel.FK_PurchaseProduct_Shipment" FromRole="Shipment" ToRole="PurchaseProduct" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="CodingCookwareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1127,30 +1081,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PurchaseProductShipment_PurchaseProduct">
-          <End Type="CodingCookwareModel.PurchaseProduct" Role="PurchaseProduct" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.PurchaseProductShipment" Role="PurchaseProductShipment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PurchaseProduct">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PurchaseProductShipment">
-              <PropertyRef Name="PurchaseProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseProductShipment_Shipment">
-          <End Type="CodingCookwareModel.Shipment" Role="Shipment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CodingCookwareModel.PurchaseProductShipment" Role="PurchaseProductShipment" Multiplicity="*" />
+        <Association Name="FK_PurchaseProduct_Shipment">
+          <End Type="CodingCookwareModel.Shipment" Role="Shipment" Multiplicity="0..1" />
+          <End Type="CodingCookwareModel.PurchaseProduct" Role="PurchaseProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipment">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="PurchaseProductShipment">
+            <Dependent Role="PurchaseProduct">
               <PropertyRef Name="ShipmentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1333,22 +1271,13 @@
               <MappingFragment StoreEntitySet="PurchaseProduct">
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ShipmentID" ColumnName="ShipmentID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PurchaseProductShipments">
-            <EntityTypeMapping TypeName="CodingCookwareModel.PurchaseProductShipment">
-              <MappingFragment StoreEntitySet="PurchaseProductShipment">
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="PurchaseProductID" ColumnName="PurchaseProductID" />
-                <ScalarProperty Name="ShipmentID" ColumnName="ShipmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
