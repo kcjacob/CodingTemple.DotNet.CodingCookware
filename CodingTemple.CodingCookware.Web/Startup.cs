@@ -20,6 +20,9 @@ namespace CodingTemple.CodingCookware.Web
                 AuthenticationType = Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new Microsoft.Owin.PathString("/Account/LogOn")
             });
+            
+
+            
 
         }
     }

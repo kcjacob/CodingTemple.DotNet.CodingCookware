@@ -62,6 +62,8 @@ namespace CodingTemple.CodingCookware.Web.Controllers
 
                 entities.Baskets.Remove(CurrentBasket);
                 entities.SaveChanges();
+
+                //TODO: Add some code to send a receipt email with the order identifier and all purchased products
                 return RedirectToAction("Index", "Reciept", new { id = p.OrderIdentifier });
             }
             return View(CurrentBasket);
